@@ -1,3 +1,0 @@
-[nornir.plugins.inventory]
-simple-inventory = nornir_utils.plugins.inventory.simple:SimpleInventory
-
