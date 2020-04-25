@@ -1,2 +1,3 @@
-# nornir_utils
-Collection of plugins and functions for nornir that don't require external dependencies
+# nornir_napalm
+
+NAPALM's plugins for nornir

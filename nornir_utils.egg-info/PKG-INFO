@@ -1,0 +1,11 @@
+Metadata-Version: 1.2
+Name: nornir-utils
+Version: 0.1.0a0
+Summary: Collection of plugins and functions for nornir that don't require external dependencies
+Home-page: UNKNOWN
+Author: David Barroso
+Author-email: dbarrosop@dravetech.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.6,<4.0

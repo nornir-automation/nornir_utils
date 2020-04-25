@@ -1,0 +1,16 @@
+README.md
+setup.cfg
+setup.py
+nornir_utils/__init__.py
+nornir_utils.egg-info/PKG-INFO
+nornir_utils.egg-info/SOURCES.txt
+nornir_utils.egg-info/dependency_links.txt
+nornir_utils.egg-info/entry_points.txt
+nornir_utils.egg-info/requires.txt
+nornir_utils.egg-info/top_level.txt
+nornir_utils/functions/__init__.py
+nornir_utils/functions/print_result.py
+nornir_utils/plugins/__init__.py
+nornir_utils/plugins/inventory/__init__.py
+nornir_utils/plugins/inventory/simple.py
+nornir_utils/plugins/processors/__init__.py
