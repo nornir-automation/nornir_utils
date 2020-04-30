@@ -117,14 +117,14 @@ def print_result(
     severity_level: int = logging.INFO,
 ) -> None:
     """
-    Prints the :obj:`nornir.core.task.Result` from a previous task to screen
+    Prints an object of type `nornir.core.task.Result`
 
     Arguments:
-        result: from a previous task
-        host: # TODO
-        vars: Which attributes you want to print
-        failed: if ``True`` assume the task failed
-        severity_level: Print only errors with this severity level or higher
+      result: from a previous task
+      host: # TODO
+      vars: Which attributes you want to print
+      failed: if ``True`` assume the task failed
+      severity_level: Print only errors with this severity level or higher
     """
     LOCK.acquire()
     try:

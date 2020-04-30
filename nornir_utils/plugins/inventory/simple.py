@@ -76,10 +76,11 @@ class SimpleInventory:
         The YAML files follow the same structure as the native objects
 
         Args:
-            host_file: path to file with hosts definition
-            group_file: path to file with groups definition. If
+
+          host_file: path to file with hosts definition
+          group_file: path to file with groups definition. If
                 it doesn't exist it will be skipped
-            defaults_file: path to file with defaults definition.
+          defaults_file: path to file with defaults definition.
                 If it doesn't exist it will be skipped
         """
 
