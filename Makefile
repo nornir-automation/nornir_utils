@@ -49,6 +49,6 @@ jupyter: jupyter
 docs:
 	rm -rf docs/api
 	mkdir -p docs/api
-	pdoc --html -o docs nornir_utils.plugins.inventory
+	pdoc nornir_utils.plugins.inventory > docs/api/inventory.rst
 	pdoc nornir_utils.plugins.processors > docs/api/processors.rst
 	pdoc nornir_utils.plugins.functions > docs/api/functions.rst
