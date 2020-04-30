@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "nornir_utils"
+version = "0.1.0a0"
+description = "Collection of plugins and functions for nornir that don't require external dependencies"
+authors = ["David Barroso <dbarrosop@dravetech.com>"]
+license = "Apache-2.0"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+nornir = { version = "~3.0.0a2", allow-prereleases = true }
+# nornir = { path = "../nornir/" }
+colorama = "^0.4.3"
+[tool.poetry.plugins."nornir.plugins.inventory"]
+"simple-inventory" = "nornir_utils.plugins.inventory.simple:SimpleInventory"
+
+[tool.poetry.dev-dependencies]
+black = { version = "19.10b0", allow-prereleases = true }
+mypy = "*"
+pylama = "^7.7.1"
+pytest = "*"
+nbval = "*"
+jupyter = "^1"
+sphinx = "^3.0.3"
+sphinxcontrib-napoleon = "^0.7"
+nbsphinx = "^0.6.1"
+sphinx-issues = "^1.2.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

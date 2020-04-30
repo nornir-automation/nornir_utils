@@ -1,2 +1,5 @@
 # nornir_utils
-Collection of plugins and functions for nornir that don't require external dependencies
+
+## Documentation
+
+See the [docs](docs) folder.
