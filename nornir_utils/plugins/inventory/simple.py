@@ -19,7 +19,7 @@ import ruamel.yaml
 logger = logging.getLogger(__name__)
 
 
-def get_connection_options(data: Dict[str, Any]) -> ConnectionOptions:
+def _get_connection_options(data: Dict[str, Any]) -> ConnectionOptions:
     cp = {}
     for cn, c in data.items():
         cp[cn] = ConnectionOptions(
@@ -33,7 +33,7 @@ def get_connection_options(data: Dict[str, Any]) -> ConnectionOptions:
     return cp
 
 
-def get_defaults(data: Dict[str, Any]) -> Defaults:
+def _get_defaults(data: Dict[str, Any]) -> Defaults:
     return Defaults(
         hostname=data.get("hostname"),
         port=data.get("port"),
@@ -41,11 +41,11 @@ def get_defaults(data: Dict[str, Any]) -> Defaults:
         password=data.get("password"),
         platform=data.get("platform"),
         data=data.get("data"),
-        connection_options=get_connection_options(data.get("connection_options", {})),
+        connection_options=_get_connection_options(data.get("connection_options", {})),
     )
 
 
-def get_inventory_element(
+def _get_inventory_element(
     typ: Type[HostOrGroup], data: Dict[str, Any], name: str, defaults: Defaults
 ) -> HostOrGroup:
     return typ(
@@ -60,17 +60,29 @@ def get_inventory_element(
             "groups"
         ),  # this is a hack, we will convert it later to the correct type
         defaults=defaults,
-        connection_options=get_connection_options(data.get("connection_options", {})),
+        connection_options=_get_connection_options(data.get("connection_options", {})),
     )
 
 
-class SimpleInventory(Inventory):
+class SimpleInventory:
     def __init__(
         self,
         host_file: str = "hosts.yaml",
         group_file: str = "groups.yaml",
         defaults_file: str = "defaults.yaml",
     ) -> None:
+        """
+        SimpleInventory is an inventory plugin that loads data from YAML files.
+        The YAML files follow the same structure as the native objects
+
+        Args:
+            host_file: path to file with hosts definition
+            group_file: path to file with groups definition. If
+                it doesn't exist it will be skipped
+            defaults_file: path to file with defaults definition.
+                If it doesn't exist it will be skipped
+        """
+
         self.host_file = pathlib.Path(host_file)
         self.group_file = pathlib.Path(group_file)
         self.defaults_file = pathlib.Path(defaults_file)
@@ -81,7 +93,7 @@ class SimpleInventory(Inventory):
         if self.defaults_file.exists():
             with open(self.defaults_file, "r") as f:
                 defaults_dict = yml.load(f)
-            defaults = get_defaults(defaults_dict)
+            defaults = _get_defaults(defaults_dict)
         else:
             defaults = Defaults()
 
@@ -90,7 +102,7 @@ class SimpleInventory(Inventory):
             hosts_dict = yml.load(f)
 
         for n, h in hosts_dict.items():
-            hosts[n] = get_inventory_element(Host, h, n, defaults)
+            hosts[n] = _get_inventory_element(Host, h, n, defaults)
 
         groups = Groups()
         if self.group_file.exists():
@@ -98,7 +110,7 @@ class SimpleInventory(Inventory):
                 groups_dict = yml.load(f)
 
             for n, g in groups_dict.items():
-                groups[n] = get_inventory_element(Group, g, n, defaults)
+                groups[n] = _get_inventory_element(Group, g, n, defaults)
 
             for h in hosts.values():
                 h.groups = ParentGroups([groups[g] for g in h.groups])

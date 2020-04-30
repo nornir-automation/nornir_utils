@@ -1,3 +1,5 @@
-# nornir_napalm
+# nornir_utils
 
-NAPALM's plugins for nornir
+## Documentation
+
+See the [docs](docs) folder.
