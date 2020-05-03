@@ -1,6 +1,4 @@
 processors
 ==========
 
-.. automodule:: nornir_utils.plugins.processors
-   :members:
-   :undoc-members:
+.. autoclass:: nornir_utils.plugins.processors.PrintResult

@@ -1,6 +1,4 @@
 NAME=$(shell basename $(PWD))
-# PDOC=pdoc --template-dir docs/tpl
-PDOC=pdc --html --output doc
 
 PYTHON:=3.7
 
