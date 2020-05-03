@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to nornir_utils's documentation!
-========================================
+nornir_utils
+============
 
 .. toctree::
    :maxdepth: 2

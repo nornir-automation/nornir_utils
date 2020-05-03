@@ -1,6 +1,4 @@
 ---
-port:
-hostname:
 username: root
 password: docker
 platform: linux
@@ -10,9 +8,5 @@ data:
 connection_options:
     dummy:
         hostname: dummy_from_defaults
-        port:
-        username:
-        password:
-        platform:
         extras:
             blah: from_defaults

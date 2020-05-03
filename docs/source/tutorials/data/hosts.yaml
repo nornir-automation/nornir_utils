@@ -2,7 +2,7 @@
 dev1.group_1:
     port: 65020
     hostname: localhost
-    username:
+    username: a_user
     password: a_password
     platform: eos
     data:
@@ -36,8 +36,6 @@ dev1.group_1:
 dev2.group_1:
     port: 65021
     hostname: localhost
-    username:
-    password:
     platform: junos
     data:
         role: db
@@ -51,24 +49,15 @@ dev2.group_1:
         - group_1
     connection_options:
         paramiko:
-            port:
-            hostname:
             username: root
             password: docker
             platform: linux
             extras: {}
         dummy2:
-            hostname:
-            port:
             username: dummy2_from_host
-            password:
-            platform:
-            extras:
 dev3.group_2:
     port: 65022
     hostname: localhost
-    username:
-    password:
     platform: linux
     data:
         www_server: apache
@@ -78,16 +67,9 @@ dev3.group_2:
     connection_options:
         napalm:
             platform: mock
-            hostname:
-            port:
-            username:
-            password:
-            extras: {}
 dev4.group_2:
     port: 65023
     hostname: localhost
-    username:
-    password:
     platform: linux
     data:
         my_var: comes_from_dev4.group_2
@@ -97,25 +79,16 @@ dev4.group_2:
         - parent_group
     connection_options:
         paramiko:
-            port:
             hostname: localhost
             username: root
             password: docker
             platform: linux
-            extras: {}
         netmiko:
-            port:
             hostname: localhost
             username: root
             password: docker
             platform: linux
-            extras: {}
 dev5.no_group:
     port: 65024
     hostname: localhost
-    username:
-    password:
     platform: linux
-    data: {}
-    groups: []
-    connection_options: {}

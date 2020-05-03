@@ -1,36 +1,165 @@
 
-<!DOCTYPE html>
 
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>nornir_utils.plugins.inventory.SimpleInventory &#8212; nornir_utils  documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>inventory: SimpleInventory &mdash; nornir_utils  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Tutorials" href="index.html" />
+    <link rel="next" title="processor: PrintResult" href="processor_PrintResult.html" />
+    <link rel="prev" title="functions: print_result" href="function_print_title.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
-  </head><body>
-  
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
           
 
-          <div class="body" role="main">
+          
+            <a href="../index.html" class="icon icon-home"> nornir_utils
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="function_print_result.html">functions: print_result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="function_print_title.html">functions: print_result</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">inventory: SimpleInventory</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Data">Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="processor_PrintResult.html">processor: PrintResult</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">nornir_utils</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Tutorials</a> &raquo;</li>
+        
+      <li>inventory: SimpleInventory</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tutorials/inventory_SimpleInventory.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   
 <style>
@@ -98,7 +227,7 @@ div.nboutput.container div.prompt pre {
 /* all prompts */
 div.nbinput.container div.prompt,
 div.nboutput.container div.prompt {
-    min-width: 5.5ex;
+    min-width: 5ex;
     padding-top: 0.3rem;
     padding-right: 0.3rem;
     text-align: right;
@@ -251,26 +380,232 @@ div.rendered_html tbody tr:nth-child(odd) {
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
 </style>
-<div class="section" id="nornir_utils.plugins.inventory.SimpleInventory">
-<h1>nornir_utils.plugins.inventory.SimpleInventory<a class="headerlink" href="#nornir_utils.plugins.inventory.SimpleInventory" title="Permalink to this headline">¶</a></h1>
-<div class="nbinput nblast docutils container">
+<div class="section" id="inventory:-SimpleInventory">
+<h1>inventory: SimpleInventory<a class="headerlink" href="#inventory:-SimpleInventory" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="../api/inventory.html#nornir_utils.plugins.inventory.SimpleInventory"><span class="std std-ref">SimpleInventory</span></a> is an inventory plugin that builds the inventory from a few YAML files.</p>
+<div class="section" id="Data">
+<h2>Data<a class="headerlink" href="#Data" title="Permalink to this headline">¶</a></h2>
+<p>Let’s see how it works by example. First let’s look at the different files the plugin takes:</p>
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">nornir</span> <span class="kn">import</span> <span class="n">InitNornir</span>
+<span></span><span class="o">%</span><span class="k">cat</span> data/hosts.yaml
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+---
+dev1.group_1:
+    port: 65020
+    hostname: localhost
+    username: a_user
+    password: a_password
+    platform: eos
+    data:
+        my_var: comes_from_dev1.group_1
+        www_server: nginx
+        role: www
+        nested_data:
+            a_dict:
+                a: 1
+                b: 2
+            a_list: [1, 2]
+            a_string: asdasd
+    groups:
+        - group_1
+    connection_options:
+        paramiko:
+            port: 65020
+            hostname:
+            username: root
+            password: docker
+            platform: linux
+            extras: {}
+        dummy:
+            hostname: dummy_from_host
+            port:
+            username:
+            password:
+            platform:
+            extras:
+                blah: from_host
+dev2.group_1:
+    port: 65021
+    hostname: localhost
+    platform: junos
+    data:
+        role: db
+        nested_data:
+            a_dict:
+                b: 2
+                c: 3
+            a_list: [2, 3]
+            a_string: qwe
+    groups:
+        - group_1
+    connection_options:
+        paramiko:
+            username: root
+            password: docker
+            platform: linux
+            extras: {}
+        dummy2:
+            username: dummy2_from_host
+dev3.group_2:
+    port: 65022
+    hostname: localhost
+    platform: linux
+    data:
+        www_server: apache
+        role: www
+    groups:
+        - group_2
+    connection_options:
+        napalm:
+            platform: mock
+dev4.group_2:
+    port: 65023
+    hostname: localhost
+    platform: linux
+    data:
+        my_var: comes_from_dev4.group_2
+        role: db
+    groups:
+        - group_2
+        - parent_group
+    connection_options:
+        paramiko:
+            hostname: localhost
+            username: root
+            password: docker
+            platform: linux
+        netmiko:
+            hostname: localhost
+            username: root
+            password: docker
+            platform: linux
+dev5.no_group:
+    port: 65024
+    hostname: localhost
+    platform: linux
+</pre></div></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">nr</span> <span class="o">=</span> <span class="n">InitNornir</span><span class="p">(</span>
+<span></span><span class="o">%</span><span class="k">cat</span> data/groups.yaml
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+---
+parent_group:
+    password: from_parent_group
+    data:
+        a_var: blah
+        a_false_var: false
+    connection_options:
+        dummy:
+            hostname: dummy_from_parent_group
+            extras:
+                blah: from_group
+        dummy2:
+            hostname: dummy2_from_parent_group
+            extras:
+                blah: from_group
+group_1:
+    password: from_group1
+    platform:
+    data:
+        my_var: comes_from_group_1
+        site: site1
+    groups:
+    - parent_group
+group_2:
+    data:
+        site: site2
+group_3:
+    data:
+        site: site2
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">cat</span> data/defaults.yaml
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+---
+username: root
+password: docker
+platform: linux
+data:
+    my_var: comes_from_defaults
+    only_default: only_defined_in_default
+connection_options:
+    dummy:
+        hostname: dummy_from_defaults
+        extras:
+            blah: from_defaults
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Example">
+<h2>Example<a class="headerlink" href="#Example" title="Permalink to this headline">¶</a></h2>
+<p>Once you have the yaml files, using the plugin is very simple, you just need to specify the plugin you want to use is <code class="docutils literal notranslate"><span class="pre">SimpleInventory</span></code> and where to find the files:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">nornir</span> <span class="kn">import</span> <span class="n">InitNornir</span>
+
+<span class="n">nr</span> <span class="o">=</span> <span class="n">InitNornir</span><span class="p">(</span>
     <span class="n">inventory</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;plugin&quot;</span><span class="p">:</span><span class="s2">&quot;simple-inventory&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;plugin&quot;</span><span class="p">:</span><span class="s2">&quot;SimpleInventory&quot;</span><span class="p">,</span>
         <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;host_file&quot;</span><span class="p">:</span> <span class="s2">&quot;data/hosts.yaml&quot;</span><span class="p">,</span>
             <span class="s2">&quot;group_file&quot;</span><span class="p">:</span> <span class="s2">&quot;data/groups.yaml&quot;</span><span class="p">,</span>
@@ -278,12 +613,21 @@ div.rendered_html tbody tr:hover {
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">)</span>
-<span class="n">nr</span><span class="o">.</span><span class="n">inventory</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Just like that, you can verify the inventory playing with or just printing it as a <code class="docutils literal notranslate"><span class="pre">dict()</span></code></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">nr</span><span class="o">.</span><span class="n">inventory</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -310,7 +654,7 @@ div.rendered_html tbody tr:hover {
      &#39;a_string&#39;: &#39;asdasd&#39;}},
    &#39;hostname&#39;: &#39;localhost&#39;,
    &#39;port&#39;: 65020,
-   &#39;username&#39;: &#39;root&#39;,
+   &#39;username&#39;: &#39;a_user&#39;,
    &#39;password&#39;: &#39;a_password&#39;,
    &#39;platform&#39;: &#39;eos&#39;},
   &#39;dev2.group_1&#39;: {&#39;name&#39;: &#39;dev2.group_1&#39;,
@@ -337,7 +681,7 @@ div.rendered_html tbody tr:hover {
    &#39;password&#39;: &#39;from_group1&#39;,
    &#39;platform&#39;: &#39;junos&#39;},
   &#39;dev3.group_2&#39;: {&#39;name&#39;: &#39;dev3.group_2&#39;,
-   &#39;connection_options&#39;: {&#39;napalm&#39;: {&#39;extras&#39;: {},
+   &#39;connection_options&#39;: {&#39;napalm&#39;: {&#39;extras&#39;: None,
      &#39;hostname&#39;: None,
      &#39;port&#39;: None,
      &#39;username&#39;: None,
@@ -351,13 +695,13 @@ div.rendered_html tbody tr:hover {
    &#39;password&#39;: &#39;docker&#39;,
    &#39;platform&#39;: &#39;linux&#39;},
   &#39;dev4.group_2&#39;: {&#39;name&#39;: &#39;dev4.group_2&#39;,
-   &#39;connection_options&#39;: {&#39;paramiko&#39;: {&#39;extras&#39;: {},
+   &#39;connection_options&#39;: {&#39;paramiko&#39;: {&#39;extras&#39;: None,
      &#39;hostname&#39;: &#39;localhost&#39;,
      &#39;port&#39;: None,
      &#39;username&#39;: &#39;root&#39;,
      &#39;password&#39;: &#39;docker&#39;,
      &#39;platform&#39;: &#39;linux&#39;},
-    &#39;netmiko&#39;: {&#39;extras&#39;: {},
+    &#39;netmiko&#39;: {&#39;extras&#39;: None,
      &#39;hostname&#39;: &#39;localhost&#39;,
      &#39;port&#39;: None,
      &#39;username&#39;: &#39;root&#39;,
@@ -442,79 +786,55 @@ div.rendered_html tbody tr:hover {
 </pre></div></div>
 </div>
 </div>
+</div>
 
 
+           </div>
+           
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">nornir_utils</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">nornir_utils.plugins.inventory.SimpleInventory</a></li>
-</ul>
-</li>
-</ul>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-  <li><a href="index.html">Tutorials</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Tutorials</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="processor_PrintResult.html" class="btn btn-neutral float-right" title="processor: PrintResult" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="function_print_title.html" class="btn btn-neutral float-left" title="functions: print_result" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
     </div>
-</div>
-<script>$('#searchbox').show(0);</script>
+  
 
+  <hr/>
 
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, David Barroso
 
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-
-
-
+</footer>
 
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2020, David Barroso.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="../_sources/tutorials/simple-inventory.ipynb.txt"
-          rel="nofollow">Page source</a>
-    </div>
 
-    
+    </section>
 
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
     
-  </body>
+   
+
+</body>
 </html>

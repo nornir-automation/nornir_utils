@@ -21,7 +21,7 @@ docker:
 
 .PHONY: pytest
 pytest:
-	poetry run pytest --nbval -vs ${ARGS}
+	poetry run pytest --nbval -vs ${ARGS} docs/source/turorials/
 
 .PHONY: black
 black:
@@ -45,11 +45,14 @@ docker-tests: docker
 
 .PHONY: jupyter
 jupyter:
-	docker run --name nornir-tests --rm $(NAME):latest jupyter notebook
+	docker run \
+	--name $(NAME)-jupyter --rm \
+	-v $(PWD):/$(NAME) \
+	$(NAME):latest \
+		jupyter notebook \
+			--allow-root \
+			--ip 0.0.0.0
 
 .PHONY: docs
 docs:
-	rm -rf docs/api
-	mkdir -p docs/api
-	pdoc --html --output docs --force \
-		nornir_utils
+	make -C docs html
