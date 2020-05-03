@@ -1,7 +1,7 @@
 import logging
 import pprint
 import threading
-from typing import List, Optional, cast
+from typing import List, cast
 from collections import OrderedDict
 import json
 
@@ -36,7 +36,6 @@ def _get_color(result: Result, failed: bool) -> str:
 
 def _print_individual_result(
     result: Result,
-    host: Optional[str],
     attrs: List[str],
     failed: bool,
     severity_level: int,
@@ -73,7 +72,6 @@ def _print_individual_result(
 
 def _print_result(
     result: Result,
-    host: Optional[str] = None,
     attrs: List[str] = None,
     failed: bool = False,
     severity_level: int = logging.INFO,
@@ -95,23 +93,22 @@ def _print_result(
             print(
                 "{}{}{}{}".format(Style.BRIGHT, Fore.BLUE, msg, "*" * (80 - len(msg)))
             )
-            _print_result(host_data, host, attrs, failed, severity_level)
+            _print_result(host_data, attrs, failed, severity_level)
     elif isinstance(result, MultiResult):
         _print_individual_result(
-            result[0], host, attrs, failed, severity_level, task_group=True
+            result[0], attrs, failed, severity_level, task_group=True
         )
         for r in result[1:]:
-            _print_result(r, host, attrs, failed, severity_level)
+            _print_result(r, attrs, failed, severity_level)
         color = _get_color(result[0], failed)
         msg = "^^^^ END {} ".format(result[0].name)
         print("{}{}{}{}".format(Style.BRIGHT, color, msg, "^" * (80 - len(msg))))
     elif isinstance(result, Result):
-        _print_individual_result(result, host, attrs, failed, severity_level)
+        _print_individual_result(result, attrs, failed, severity_level)
 
 
 def print_result(
     result: Result,
-    host: Optional[str] = None,
     vars: List[str] = None,
     failed: bool = False,
     severity_level: int = logging.INFO,
@@ -121,13 +118,12 @@ def print_result(
 
     Arguments:
       result: from a previous task
-      host: # TODO
       vars: Which attributes you want to print
       failed: if ``True`` assume the task failed
       severity_level: Print only errors with this severity level or higher
     """
     LOCK.acquire()
     try:
-        _print_result(result, host, vars, failed, severity_level)
+        _print_result(result, vars, failed, severity_level)
     finally:
         LOCK.release()

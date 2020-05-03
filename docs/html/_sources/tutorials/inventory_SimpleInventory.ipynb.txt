@@ -4,22 +4,238 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "nornir_utils.plugins.inventory.SimpleInventory\n",
-    "===================================="
+    "# inventory: SimpleInventory\n",
+    "\n",
+    "\n",
+    "[SimpleInventory](../api/inventory.rst#nornir_utils.plugins.inventory.SimpleInventory) is an inventory plugin that builds the inventory from a few YAML files.\n",
+    "\n",
+    "## Data\n",
+    "\n",
+    "Let's see how it works by example. First let's look at the different files the plugin takes:"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 1,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "---\r\n",
+      "dev1.group_1:\r\n",
+      "    port: 65020\r\n",
+      "    hostname: localhost\r\n",
+      "    username: a_user\r\n",
+      "    password: a_password\r\n",
+      "    platform: eos\r\n",
+      "    data:\r\n",
+      "        my_var: comes_from_dev1.group_1\r\n",
+      "        www_server: nginx\r\n",
+      "        role: www\r\n",
+      "        nested_data:\r\n",
+      "            a_dict:\r\n",
+      "                a: 1\r\n",
+      "                b: 2\r\n",
+      "            a_list: [1, 2]\r\n",
+      "            a_string: asdasd\r\n",
+      "    groups:\r\n",
+      "        - group_1\r\n",
+      "    connection_options:\r\n",
+      "        paramiko:\r\n",
+      "            port: 65020\r\n",
+      "            hostname:\r\n",
+      "            username: root\r\n",
+      "            password: docker\r\n",
+      "            platform: linux\r\n",
+      "            extras: {}\r\n",
+      "        dummy:\r\n",
+      "            hostname: dummy_from_host\r\n",
+      "            port:\r\n",
+      "            username:\r\n",
+      "            password:\r\n",
+      "            platform:\r\n",
+      "            extras:\r\n",
+      "                blah: from_host\r\n",
+      "dev2.group_1:\r\n",
+      "    port: 65021\r\n",
+      "    hostname: localhost\r\n",
+      "    platform: junos\r\n",
+      "    data:\r\n",
+      "        role: db\r\n",
+      "        nested_data:\r\n",
+      "            a_dict:\r\n",
+      "                b: 2\r\n",
+      "                c: 3\r\n",
+      "            a_list: [2, 3]\r\n",
+      "            a_string: qwe\r\n",
+      "    groups:\r\n",
+      "        - group_1\r\n",
+      "    connection_options:\r\n",
+      "        paramiko:\r\n",
+      "            username: root\r\n",
+      "            password: docker\r\n",
+      "            platform: linux\r\n",
+      "            extras: {}\r\n",
+      "        dummy2:\r\n",
+      "            username: dummy2_from_host\r\n",
+      "dev3.group_2:\r\n",
+      "    port: 65022\r\n",
+      "    hostname: localhost\r\n",
+      "    platform: linux\r\n",
+      "    data:\r\n",
+      "        www_server: apache\r\n",
+      "        role: www\r\n",
+      "    groups:\r\n",
+      "        - group_2\r\n",
+      "    connection_options:\r\n",
+      "        napalm:\r\n",
+      "            platform: mock\r\n",
+      "dev4.group_2:\r\n",
+      "    port: 65023\r\n",
+      "    hostname: localhost\r\n",
+      "    platform: linux\r\n",
+      "    data:\r\n",
+      "        my_var: comes_from_dev4.group_2\r\n",
+      "        role: db\r\n",
+      "    groups:\r\n",
+      "        - group_2\r\n",
+      "        - parent_group\r\n",
+      "    connection_options:\r\n",
+      "        paramiko:\r\n",
+      "            hostname: localhost\r\n",
+      "            username: root\r\n",
+      "            password: docker\r\n",
+      "            platform: linux\r\n",
+      "        netmiko:\r\n",
+      "            hostname: localhost\r\n",
+      "            username: root\r\n",
+      "            password: docker\r\n",
+      "            platform: linux\r\n",
+      "dev5.no_group:\r\n",
+      "    port: 65024\r\n",
+      "    hostname: localhost\r\n",
+      "    platform: linux\r\n"
+     ]
+    }
+   ],
    "source": [
-    "from nornir import InitNornir"
+    "%cat data/hosts.yaml"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "---\r\n",
+      "parent_group:\r\n",
+      "    password: from_parent_group\r\n",
+      "    data:\r\n",
+      "        a_var: blah\r\n",
+      "        a_false_var: false\r\n",
+      "    connection_options:\r\n",
+      "        dummy:\r\n",
+      "            hostname: dummy_from_parent_group\r\n",
+      "            extras:\r\n",
+      "                blah: from_group\r\n",
+      "        dummy2:\r\n",
+      "            hostname: dummy2_from_parent_group\r\n",
+      "            extras:\r\n",
+      "                blah: from_group\r\n",
+      "group_1:\r\n",
+      "    password: from_group1\r\n",
+      "    platform:\r\n",
+      "    data:\r\n",
+      "        my_var: comes_from_group_1\r\n",
+      "        site: site1\r\n",
+      "    groups:\r\n",
+      "    - parent_group\r\n",
+      "group_2:\r\n",
+      "    data:\r\n",
+      "        site: site2\r\n",
+      "group_3:\r\n",
+      "    data:\r\n",
+      "        site: site2\r\n"
+     ]
+    }
+   ],
+   "source": [
+    "%cat data/groups.yaml"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "---\r\n",
+      "username: root\r\n",
+      "password: docker\r\n",
+      "platform: linux\r\n",
+      "data:\r\n",
+      "    my_var: comes_from_defaults\r\n",
+      "    only_default: only_defined_in_default\r\n",
+      "connection_options:\r\n",
+      "    dummy:\r\n",
+      "        hostname: dummy_from_defaults\r\n",
+      "        extras:\r\n",
+      "            blah: from_defaults\r\n"
+     ]
+    }
+   ],
+   "source": [
+    "%cat data/defaults.yaml"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Example\n",
+    "\n",
+    "Once you have the yaml files, using the plugin is very simple, you just need to specify the plugin you want to use is `SimpleInventory` and where to find the files:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from nornir import InitNornir\n",
+    "\n",
+    "nr = InitNornir(\n",
+    "    inventory={\n",
+    "        \"plugin\":\"SimpleInventory\",\n",
+    "        \"options\": {\n",
+    "            \"host_file\": \"data/hosts.yaml\",\n",
+    "            \"group_file\": \"data/groups.yaml\",\n",
+    "            \"defaults_file\": \"data/defaults.yaml\",\n",
+    "        }\n",
+    "    }\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Just like that, you can verify the inventory playing with or just printing it as a `dict()`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
@@ -47,7 +263,7 @@
        "     'a_string': 'asdasd'}},\n",
        "   'hostname': 'localhost',\n",
        "   'port': 65020,\n",
-       "   'username': 'root',\n",
+       "   'username': 'a_user',\n",
        "   'password': 'a_password',\n",
        "   'platform': 'eos'},\n",
        "  'dev2.group_1': {'name': 'dev2.group_1',\n",
@@ -74,7 +290,7 @@
        "   'password': 'from_group1',\n",
        "   'platform': 'junos'},\n",
        "  'dev3.group_2': {'name': 'dev3.group_2',\n",
-       "   'connection_options': {'napalm': {'extras': {},\n",
+       "   'connection_options': {'napalm': {'extras': None,\n",
        "     'hostname': None,\n",
        "     'port': None,\n",
        "     'username': None,\n",
@@ -88,13 +304,13 @@
        "   'password': 'docker',\n",
        "   'platform': 'linux'},\n",
        "  'dev4.group_2': {'name': 'dev4.group_2',\n",
-       "   'connection_options': {'paramiko': {'extras': {},\n",
+       "   'connection_options': {'paramiko': {'extras': None,\n",
        "     'hostname': 'localhost',\n",
        "     'port': None,\n",
        "     'username': 'root',\n",
        "     'password': 'docker',\n",
        "     'platform': 'linux'},\n",
-       "    'netmiko': {'extras': {},\n",
+       "    'netmiko': {'extras': None,\n",
        "     'hostname': 'localhost',\n",
        "     'port': None,\n",
        "     'username': 'root',\n",
@@ -178,22 +394,12 @@
        "  'platform': 'linux'}}"
       ]
      },
-     "execution_count": 2,
+     "execution_count": 5,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "nr = InitNornir(\n",
-    "    inventory={\n",
-    "        \"plugin\":\"simple-inventory\",\n",
-    "        \"options\": {\n",
-    "            \"host_file\": \"data/hosts.yaml\",\n",
-    "            \"group_file\": \"data/groups.yaml\",\n",
-    "            \"defaults_file\": \"data/defaults.yaml\",\n",
-    "        }\n",
-    "    }\n",
-    ")\n",
     "nr.inventory.dict()"
    ]
   }
