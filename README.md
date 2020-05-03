@@ -1,3 +1,5 @@
+![test_nornir_utils](https://github.com/nornir-automation/nornir_utils/workflows/test_nornir_utils/badge.svg)
+
 # nornir_utils
 
 Collection of simple plugins for [nornir](github.com/nornir-automation/nornir/)
