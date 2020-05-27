@@ -29,10 +29,17 @@ _________
 Functions
 _________
 
-* **print_result** - formats nicely and prints results on stdout
-* **print_title** - formats nicely a title and prints it on stdout
+* **print_result** - Formats nicely and prints results on stdout.
+* **print_title** - Formats nicely a title and prints it on stdout.
 
 Processors
 __________
 
-* **PrintResult** - formats nicely and prints results on stdoud as soon as they are made available
+* **PrintResult** - Formats nicely and prints results on stdout as soon as they are made available.
+
+Data
+__________
+
+* **echo_data** - Dummy task that echoes the data passed to it.
+* **load_json** - Load a JSON file.
+* **load_yaml** - Load a YAML file.
