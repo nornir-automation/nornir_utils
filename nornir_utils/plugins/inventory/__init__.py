@@ -1,3 +1,3 @@
-from .simple import SimpleInventory
+from .yaml_inventory import YAMLInventory
 
-__all__ = ("SimpleInventory",)
+__all__ = ("YAMLInventory",)

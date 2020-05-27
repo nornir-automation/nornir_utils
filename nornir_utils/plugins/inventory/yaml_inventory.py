@@ -64,7 +64,7 @@ def _get_inventory_element(
     )
 
 
-class SimpleInventory:
+class YAMLInventory:
     def __init__(
         self,
         host_file: str = "hosts.yaml",
@@ -72,7 +72,7 @@ class SimpleInventory:
         defaults_file: str = "defaults.yaml",
     ) -> None:
         """
-        SimpleInventory is an inventory plugin that loads data from YAML files.
+        YAMLInventory is an inventory plugin that loads data from YAML files.
         The YAML files follow the same structure as the native objects
 
         Args:
