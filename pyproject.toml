@@ -6,7 +6,7 @@ authors = ["David Barroso <dbarrosop@dravetech.com>"]
 license = "Apache-2.0"
 
 [tool.poetry.plugins."nornir.plugins.inventory"]
-"YAMLInventory" = "nornir_utils.plugins.inventory.simple:SimpleInventory"
+"YAMLInventory" = "nornir_utils.plugins.inventory.yaml_inventory:YAMLInventory"
 
 [tool.poetry.dependencies]
 python = "^3.6"
