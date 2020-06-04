@@ -64,7 +64,7 @@ def _get_inventory_element(
     )
 
 
-class SimpleInventory:
+class YAMLInventory:
     def __init__(
         self,
         host_file: str = "hosts.yaml",
@@ -72,7 +72,7 @@ class SimpleInventory:
         defaults_file: str = "defaults.yaml",
     ) -> None:
         """
-        SimpleInventory is an inventory plugin that loads data from YAML files.
+        YAMLInventory is an inventory plugin that loads data from YAML files.
         The YAML files follow the same structure as the native objects
 
         Args:
@@ -84,9 +84,9 @@ class SimpleInventory:
                 If it doesn't exist it will be skipped
         """
 
-        self.host_file = pathlib.Path(host_file)
-        self.group_file = pathlib.Path(group_file)
-        self.defaults_file = pathlib.Path(defaults_file)
+        self.host_file = pathlib.Path(host_file).expanduser()
+        self.group_file = pathlib.Path(group_file).expanduser()
+        self.defaults_file = pathlib.Path(defaults_file).expanduser()
 
     def load(self) -> Inventory:
         yml = ruamel.yaml.YAML(typ="safe")

@@ -24,7 +24,7 @@ Plugins
 Inventory
 _________
 
-* **SimpleInventory** - Create an inventory from yaml files
+* **YAMLInventory** - Create an inventory from yaml files
 
 Functions
 _________
