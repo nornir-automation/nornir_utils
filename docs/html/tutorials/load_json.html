@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>functions: print_result &mdash; nornir_utils  documentation</title>
+  <title>load_json &mdash; nornir_utils  documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="inventory: YAMLInventory" href="inventory_YAMLInventory.html" />
-    <link rel="prev" title="functions: print_result" href="function_print_result.html" /> 
+    <link rel="next" title="load_yaml" href="load_yaml.html" />
+    <link rel="prev" title="inventory: YAMLInventory" href="inventory_YAMLInventory.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,9 +87,12 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="echo_data.html">echo_data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="function_print_result.html">functions: print_result</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">functions: print_result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="function_print_title.html">functions: print_result</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inventory_YAMLInventory.html">inventory: YAMLInventory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="load_json.html">load_json</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">load_json</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Example">Example</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="load_yaml.html">load_yaml</a></li>
 <li class="toctree-l2"><a class="reference internal" href="processor_PrintResult.html">processor: PrintResult</a></li>
 </ul>
@@ -141,13 +144,13 @@
         
           <li><a href="index.html">Tutorials</a> &raquo;</li>
         
-      <li>functions: print_result</li>
+      <li>load_json</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/tutorials/function_print_title.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/tutorials/load_json.ipynb.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -402,17 +405,33 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="functions:-print_result">
-<h1>functions: print_result<a class="headerlink" href="#functions:-print_result" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference internal" href="../api/functions.html#nornir_utils.plugins.functions.print_title"><span class="std std-ref">print_title</span></a> that prints a title</p>
+<div class="section" id="load_json">
+<h1>load_json<a class="headerlink" href="#load_json" title="Permalink to this headline">¶</a></h1>
+<p>Loads a JSON file.</p>
+<div class="section" id="Example">
+<h2>Example<a class="headerlink" href="#Example" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">nornir_utils.plugins.functions</span> <span class="kn">import</span> <span class="n">print_title</span>
+<span></span><span class="kn">from</span> <span class="nn">nornir</span> <span class="kn">import</span> <span class="n">InitNornir</span>
+<span class="kn">from</span> <span class="nn">nornir_utils.plugins.tasks.data</span> <span class="kn">import</span> <span class="n">load_json</span>
 
-<span class="n">print_title</span><span class="p">(</span><span class="s2">&quot;About to do somehting!&quot;</span><span class="p">)</span>
+<span class="n">nr</span> <span class="o">=</span> <span class="n">InitNornir</span><span class="p">(</span>
+    <span class="n">inventory</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;plugin&quot;</span><span class="p">:</span> <span class="s2">&quot;SimpleInventory&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;host_file&quot;</span><span class="p">:</span> <span class="s2">&quot;data/hosts.yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;group_file&quot;</span><span class="p">:</span> <span class="s2">&quot;data/groups.yaml&quot;</span><span class="p">},</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">nr</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="n">load_json</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="s2">&quot;data/ip_addresses.json&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">host</span><span class="p">,</span> <span class="n">m_result</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Host: </span><span class="si">{</span><span class="n">host</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;JSON data: </span><span class="si">{</span><span class="n">m_result</span><span class="o">.</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">40</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -421,9 +440,33 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-<span class="ansi-green-intense-fg ansi-bold">**** About to do somehting! ****************************************************</span>
 
+----------------------------------------
+Host: dev1.group_1
+JSON data: [&#39;8.8.8.8&#39;, &#39;8.8.4.4&#39;, &#39;1.1.1.1&#39;, &#39;1.0.0.1&#39;]
+----------------------------------------
+
+----------------------------------------
+Host: dev2.group_1
+JSON data: [&#39;8.8.8.8&#39;, &#39;8.8.4.4&#39;, &#39;1.1.1.1&#39;, &#39;1.0.0.1&#39;]
+----------------------------------------
+
+----------------------------------------
+Host: dev3.group_2
+JSON data: [&#39;8.8.8.8&#39;, &#39;8.8.4.4&#39;, &#39;1.1.1.1&#39;, &#39;1.0.0.1&#39;]
+----------------------------------------
+
+----------------------------------------
+Host: dev4.group_2
+JSON data: [&#39;8.8.8.8&#39;, &#39;8.8.4.4&#39;, &#39;1.1.1.1&#39;, &#39;1.0.0.1&#39;]
+----------------------------------------
+
+----------------------------------------
+Host: dev5.no_group
+JSON data: [&#39;8.8.8.8&#39;, &#39;8.8.4.4&#39;, &#39;1.1.1.1&#39;, &#39;1.0.0.1&#39;]
+----------------------------------------
 </pre></div></div>
+</div>
 </div>
 </div>
 
@@ -435,10 +478,10 @@ div.rendered_html tbody tr:hover {
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="inventory_YAMLInventory.html" class="btn btn-neutral float-right" title="inventory: YAMLInventory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="load_yaml.html" class="btn btn-neutral float-right" title="load_yaml" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="function_print_result.html" class="btn btn-neutral float-left" title="functions: print_result" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="inventory_YAMLInventory.html" class="btn btn-neutral float-left" title="inventory: YAMLInventory" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

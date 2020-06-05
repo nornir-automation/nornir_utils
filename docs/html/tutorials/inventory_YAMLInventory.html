@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>inventory: SimpleInventory &mdash; nornir_utils  documentation</title>
+  <title>inventory: YAMLInventory &mdash; nornir_utils  documentation</title>
   
 
   
@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="processor: PrintResult" href="processor_PrintResult.html" />
+    <link rel="next" title="load_json" href="load_json.html" />
     <link rel="prev" title="functions: print_result" href="function_print_title.html" /> 
 </head>
 
@@ -85,13 +85,16 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="echo_data.html">echo_data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="function_print_result.html">functions: print_result</a></li>
 <li class="toctree-l2"><a class="reference internal" href="function_print_title.html">functions: print_result</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">inventory: SimpleInventory</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">inventory: YAMLInventory</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Data">Data</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Example">Example</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="load_json.html">load_json</a></li>
+<li class="toctree-l2"><a class="reference internal" href="load_yaml.html">load_yaml</a></li>
 <li class="toctree-l2"><a class="reference internal" href="processor_PrintResult.html">processor: PrintResult</a></li>
 </ul>
 </li>
@@ -142,13 +145,13 @@
         
           <li><a href="index.html">Tutorials</a> &raquo;</li>
         
-      <li>inventory: SimpleInventory</li>
+      <li>inventory: YAMLInventory</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/tutorials/inventory_SimpleInventory.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/tutorials/inventory_YAMLInventory.ipynb.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -403,9 +406,9 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="inventory:-SimpleInventory">
-<h1>inventory: SimpleInventory<a class="headerlink" href="#inventory:-SimpleInventory" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference internal" href="../api/inventory.html#nornir_utils.plugins.inventory.SimpleInventory"><span class="std std-ref">SimpleInventory</span></a> is an inventory plugin that builds the inventory from a few YAML files.</p>
+<div class="section" id="inventory:-YAMLInventory">
+<h1>inventory: YAMLInventory<a class="headerlink" href="#inventory:-YAMLInventory" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="../api/inventory.html#nornir_utils.plugins.inventory.YAMLInventory"><span class="std std-ref">YAMLInventory</span></a> is an inventory plugin that builds the inventory from a few YAML files.</p>
 <div class="section" id="Data">
 <h2>Data<a class="headerlink" href="#Data" title="Permalink to this headline">¶</a></h2>
 <p>Let’s see how it works by example. First let’s look at the different files the plugin takes:</p>
@@ -595,7 +598,7 @@ connection_options:
 </div>
 <div class="section" id="Example">
 <h2>Example<a class="headerlink" href="#Example" title="Permalink to this headline">¶</a></h2>
-<p>Once you have the yaml files, using the plugin is very simple, you just need to specify the plugin you want to use is <code class="docutils literal notranslate"><span class="pre">SimpleInventory</span></code> and where to find the files:</p>
+<p>Once you have the yaml files, using the plugin is very simple, you just need to specify the plugin you want to use is <code class="docutils literal notranslate"><span class="pre">YAMLInventory</span></code> and where to find the files:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -605,7 +608,7 @@ connection_options:
 
 <span class="n">nr</span> <span class="o">=</span> <span class="n">InitNornir</span><span class="p">(</span>
     <span class="n">inventory</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;plugin&quot;</span><span class="p">:</span><span class="s2">&quot;SimpleInventory&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;plugin&quot;</span><span class="p">:</span><span class="s2">&quot;YAMLInventory&quot;</span><span class="p">,</span>
         <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;host_file&quot;</span><span class="p">:</span> <span class="s2">&quot;data/hosts.yaml&quot;</span><span class="p">,</span>
             <span class="s2">&quot;group_file&quot;</span><span class="p">:</span> <span class="s2">&quot;data/groups.yaml&quot;</span><span class="p">,</span>
@@ -796,7 +799,7 @@ connection_options:
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="processor_PrintResult.html" class="btn btn-neutral float-right" title="processor: PrintResult" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="load_json.html" class="btn btn-neutral float-right" title="load_json" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="function_print_title.html" class="btn btn-neutral float-left" title="functions: print_result" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
