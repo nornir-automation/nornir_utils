@@ -1,0 +1,99 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "collapsed": false
+   },
+   "source": [
+    "# echo_data\n",
+    "\n",
+    "echo_data is a data plugin that echoes the data passed into it. It is useful in grouped_tasks debugging.\n",
+    "\n",
+    "## Example"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {
+    "pycharm": {
+     "name": "#%%\n"
+    }
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\u001B[1m\u001B[36mgrouped_task********************************************************************\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[34m* dev1.group_1 ** changed : False **********************************************\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[32mvvvv grouped_task ** changed : False vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv INFO\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[32m---- dev1.group_1 ** changed : False ------------------------------------------- INFO\u001B[0m\n",
+      "\u001B[0m{'role': 'www'}\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[32m^^^^ END grouped_task ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[34m* dev2.group_1 ** changed : False **********************************************\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[32mvvvv grouped_task ** changed : False vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv INFO\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[32m---- dev2.group_1 ** changed : False ------------------------------------------- INFO\u001B[0m\n",
+      "\u001B[0m{'role': 'db'}\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[32m^^^^ END grouped_task ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[34m* dev3.group_2 ** changed : False **********************************************\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[32mvvvv grouped_task ** changed : False vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv INFO\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[32m---- dev3.group_2 ** changed : False ------------------------------------------- INFO\u001B[0m\n",
+      "\u001B[0m{'role': 'www'}\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[32m^^^^ END grouped_task ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[34m* dev4.group_2 ** changed : False **********************************************\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[32mvvvv grouped_task ** changed : False vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv INFO\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[32m---- dev4.group_2 ** changed : False ------------------------------------------- INFO\u001B[0m\n",
+      "\u001B[0m{'role': 'db'}\u001B[0m\n",
+      "\u001B[0m\u001B[1m\u001B[32m^^^^ END grouped_task ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\u001B[0m\n",
+      "\u001B[0m"
+     ]
+    }
+   ],
+   "source": [
+    "from nornir import InitNornir\n",
+    "from nornir.core.filter import F\n",
+    "from nornir_utils.plugins.tasks.data import echo_data\n",
+    "from nornir_utils.plugins.functions import print_result\n",
+    "\n",
+    "nr = InitNornir(\n",
+    "    inventory={\n",
+    "        \"plugin\": \"SimpleInventory\",\n",
+    "        \"options\": {\"host_file\": \"data/hosts.yaml\", \"group_file\": \"data/groups.yaml\"},\n",
+    "    }\n",
+    ")\n",
+    "nr = nr.filter(~F(name=\"dev5.no_group\"))\n",
+    "\n",
+    "\n",
+    "def grouped_task(task):\n",
+    "    task.run(task=echo_data, name=task.host.name, role=task.host[\"role\"])\n",
+    "\n",
+    "\n",
+    "r = nr.run(task=grouped_task)\n",
+    "print_result(r)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

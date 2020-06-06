@@ -188,20 +188,28 @@
 <div class="section" id="inventory">
 <h3>Inventory<a class="headerlink" href="#inventory" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p><strong>SimpleInventory</strong> - Create an inventory from yaml files</p></li>
+<li><p><strong>YAMLInventory</strong> - Create an inventory from yaml files</p></li>
 </ul>
 </div>
 <div class="section" id="functions">
 <h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p><strong>print_result</strong> - formats nicely and prints results on stdout</p></li>
-<li><p><strong>print_title</strong> - formats nicely a title and prints it on stdout</p></li>
+<li><p><strong>print_result</strong> - Formats nicely and prints results on stdout.</p></li>
+<li><p><strong>print_title</strong> - Formats nicely a title and prints it on stdout.</p></li>
 </ul>
 </div>
 <div class="section" id="processors">
 <h3>Processors<a class="headerlink" href="#processors" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p><strong>PrintResult</strong> - formats nicely and prints results on stdoud as soon as they are made available</p></li>
+<li><p><strong>PrintResult</strong> - Formats nicely and prints results on stdout as soon as they are made available.</p></li>
+</ul>
+</div>
+<div class="section" id="data">
+<h3>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><strong>echo_data</strong> - Dummy task that echoes the data passed to it.</p></li>
+<li><p><strong>load_json</strong> - Load a JSON file.</p></li>
+<li><p><strong>load_yaml</strong> - Load a YAML file.</p></li>
 </ul>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
@@ -210,12 +218,16 @@
 <li class="toctree-l2"><a class="reference internal" href="api/functions.html">functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/inventory.html">inventory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/processors.html">processors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/tasks.html">tasks</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/echo_data.html">echo_data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/function_print_result.html">functions: print_result</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/function_print_title.html">functions: print_result</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/inventory_SimpleInventory.html">inventory: SimpleInventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/inventory_YAMLInventory.html">inventory: YAMLInventory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/load_json.html">load_json</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/load_yaml.html">load_yaml</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorials/processor_PrintResult.html">processor: PrintResult</a></li>
 </ul>
 </li>
