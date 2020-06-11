@@ -19,6 +19,7 @@ docker:
 
 .PHONY: pytest
 pytest:
+	rm -f docs/source/tutorials/out_files/*.txt
 	poetry run pytest --nbval -vs ${ARGS} docs/source/tutorials
 
 .PHONY: black
