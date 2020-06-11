@@ -261,6 +261,32 @@ to debug data passed to tasks.</p>
 </dl>
 </dd></dl>
 
+<span class="target" id="module-nornir_utils.plugins.tasks.files"></span><dl class="py function">
+<dt id="nornir_utils.plugins.tasks.files.write_file">
+<code class="sig-prename descclassname">nornir_utils.plugins.tasks.files.</code><code class="sig-name descname">write_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">task</span><span class="p">:</span> <span class="n">nornir.core.task.Task</span></em>, <em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">content</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">append</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">dry_run</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bool<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; nornir.core.task.Result<a class="headerlink" href="#nornir_utils.plugins.tasks.files.write_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write contents to a file (locally)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dry_run</strong> – Whether to apply changes or not</p></li>
+<li><p><strong>filename</strong> – file you want to write into</p></li>
+<li><p><strong>content</strong> – content you want to write</p></li>
+<li><p><strong>append</strong> – whether you want to replace the contents or append to it</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>changed (<code class="docutils literal notranslate"><span class="pre">bool</span></code>):</p></li>
+<li><p>diff (<code class="docutils literal notranslate"><span class="pre">str</span></code>): unified diff</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Result object with the following attributes set</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 

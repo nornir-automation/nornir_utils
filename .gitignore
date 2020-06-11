@@ -106,3 +106,6 @@ output/
 .idea
 
 pip-wheel-metadata/
+
+# Temp directory for generated files
+docs/source/tutorials/out_files/*.txt
