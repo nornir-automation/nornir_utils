@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>functions: print_result &mdash; nornir_utils  documentation</title>
+  <title>write_file &mdash; nornir_utils  documentation</title>
   
 
   
@@ -36,8 +36,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="inventory: YAMLInventory" href="inventory_YAMLInventory.html" />
-    <link rel="prev" title="functions: print_result" href="function_print_result.html" /> 
+    <link rel="prev" title="processor: PrintResult" href="processor_PrintResult.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,12 +86,15 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="echo_data.html">echo_data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="function_print_result.html">functions: print_result</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">functions: print_result</a></li>
+<li class="toctree-l2"><a class="reference internal" href="function_print_title.html">functions: print_result</a></li>
 <li class="toctree-l2"><a class="reference internal" href="inventory_YAMLInventory.html">inventory: YAMLInventory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="load_json.html">load_json</a></li>
 <li class="toctree-l2"><a class="reference internal" href="load_yaml.html">load_yaml</a></li>
 <li class="toctree-l2"><a class="reference internal" href="processor_PrintResult.html">processor: PrintResult</a></li>
-<li class="toctree-l2"><a class="reference internal" href="write_file.html">write_file</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">write_file</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Example">Example</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -142,13 +144,13 @@
         
           <li><a href="index.html">Tutorials</a> &raquo;</li>
         
-      <li>functions: print_result</li>
+      <li>write_file</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/tutorials/function_print_title.ipynb.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/tutorials/write_file.ipynb.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -403,17 +405,39 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="functions:-print_result">
-<h1>functions: print_result<a class="headerlink" href="#functions:-print_result" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference internal" href="../api/functions.html#nornir_utils.plugins.functions.print_title"><span class="std std-ref">print_title</span></a> that prints a title</p>
+<div class="section" id="write_file">
+<h1>write_file<a class="headerlink" href="#write_file" title="Permalink to this headline">¶</a></h1>
+<p>Write contents to a file (locally)</p>
+<div class="section" id="Example">
+<h2>Example<a class="headerlink" href="#Example" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">nornir_utils.plugins.functions</span> <span class="kn">import</span> <span class="n">print_title</span>
+<span></span><span class="kn">from</span> <span class="nn">nornir</span> <span class="kn">import</span> <span class="n">InitNornir</span>
+<span class="kn">from</span> <span class="nn">nornir_utils.plugins.tasks.files</span> <span class="kn">import</span> <span class="n">write_file</span>
+<span class="kn">from</span> <span class="nn">nornir_utils.plugins.functions</span> <span class="kn">import</span> <span class="n">print_result</span>
 
-<span class="n">print_title</span><span class="p">(</span><span class="s2">&quot;About to do somehting!&quot;</span><span class="p">)</span>
+<span class="n">nr</span> <span class="o">=</span> <span class="n">InitNornir</span><span class="p">(</span>
+    <span class="n">inventory</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;plugin&quot;</span><span class="p">:</span> <span class="s2">&quot;SimpleInventory&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;host_file&quot;</span><span class="p">:</span> <span class="s2">&quot;data/hosts.yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;group_file&quot;</span><span class="p">:</span> <span class="s2">&quot;data/groups.yaml&quot;</span><span class="p">},</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">generate_configurations</span><span class="p">(</span><span class="n">task</span><span class="p">):</span>
+    <span class="n">task</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+        <span class="n">task</span><span class="o">=</span><span class="n">write_file</span><span class="p">,</span>
+        <span class="n">filename</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;out_files/</span><span class="si">{</span><span class="n">task</span><span class="o">.</span><span class="n">host</span><span class="si">}</span><span class="s2">-config.txt&quot;</span><span class="p">,</span>
+        <span class="n">content</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">---example configuration to write out---</span><span class="se">\n\n\n</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">nr</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+    <span class="n">task</span><span class="o">=</span><span class="n">generate_configurations</span>
+<span class="p">)</span>
+
+<span class="n">print_result</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -422,9 +446,85 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-<span class="ansi-green-intense-fg ansi-bold">**** About to do somehting! ****************************************************</span>
+<span class="ansi-cyan-intense-fg ansi-bold">generate_configurations*********************************************************</span>
+<span class="ansi-blue-intense-fg ansi-bold">* dev1.group_1 ** changed : True ***********************************************</span>
+<span class="ansi-green-intense-fg ansi-bold">vvvv generate_configurations ** changed : False vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv INFO</span>
+<span class="ansi-yellow-intense-fg ansi-bold">---- write_file ** changed : True ---------------------------------------------- INFO</span>
+--- out_files/dev1.group_1-config.txt
+
++++ new
+
+@@ -0,0 +1,5 @@
+
++
++
++---example configuration to write out---
++
++
+<span class="ansi-green-intense-fg ansi-bold">^^^^ END generate_configurations ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<span class="ansi-blue-intense-fg ansi-bold">* dev2.group_1 ** changed : True ***********************************************</span>
+<span class="ansi-green-intense-fg ansi-bold">vvvv generate_configurations ** changed : False vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv INFO</span>
+<span class="ansi-yellow-intense-fg ansi-bold">---- write_file ** changed : True ---------------------------------------------- INFO</span>
+--- out_files/dev2.group_1-config.txt
+
++++ new
+
+@@ -0,0 +1,5 @@
+
++
++
++---example configuration to write out---
++
++
+<span class="ansi-green-intense-fg ansi-bold">^^^^ END generate_configurations ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<span class="ansi-blue-intense-fg ansi-bold">* dev3.group_2 ** changed : True ***********************************************</span>
+<span class="ansi-green-intense-fg ansi-bold">vvvv generate_configurations ** changed : False vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv INFO</span>
+<span class="ansi-yellow-intense-fg ansi-bold">---- write_file ** changed : True ---------------------------------------------- INFO</span>
+--- out_files/dev3.group_2-config.txt
+
++++ new
+
+@@ -0,0 +1,5 @@
+
++
++
++---example configuration to write out---
++
++
+<span class="ansi-green-intense-fg ansi-bold">^^^^ END generate_configurations ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<span class="ansi-blue-intense-fg ansi-bold">* dev4.group_2 ** changed : True ***********************************************</span>
+<span class="ansi-green-intense-fg ansi-bold">vvvv generate_configurations ** changed : False vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv INFO</span>
+<span class="ansi-yellow-intense-fg ansi-bold">---- write_file ** changed : True ---------------------------------------------- INFO</span>
+--- out_files/dev4.group_2-config.txt
+
++++ new
+
+@@ -0,0 +1,5 @@
+
++
++
++---example configuration to write out---
++
++
+<span class="ansi-green-intense-fg ansi-bold">^^^^ END generate_configurations ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+<span class="ansi-blue-intense-fg ansi-bold">* dev5.no_group ** changed : True **********************************************</span>
+<span class="ansi-green-intense-fg ansi-bold">vvvv generate_configurations ** changed : False vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv INFO</span>
+<span class="ansi-yellow-intense-fg ansi-bold">---- write_file ** changed : True ---------------------------------------------- INFO</span>
+--- out_files/dev5.no_group-config.txt
+
++++ new
+
+@@ -0,0 +1,5 @@
+
++
++
++---example configuration to write out---
++
++
+<span class="ansi-green-intense-fg ansi-bold">^^^^ END generate_configurations ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
 
 </pre></div></div>
+</div>
 </div>
 </div>
 
@@ -436,10 +536,8 @@ div.rendered_html tbody tr:hover {
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="inventory_YAMLInventory.html" class="btn btn-neutral float-right" title="inventory: YAMLInventory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="function_print_result.html" class="btn btn-neutral float-left" title="functions: print_result" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="processor_PrintResult.html" class="btn btn-neutral float-left" title="processor: PrintResult" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
