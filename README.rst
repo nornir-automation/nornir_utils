@@ -37,9 +37,15 @@ __________
 
 * **PrintResult** - Formats nicely and prints results on stdout as soon as they are made available.
 
-Data
-__________
+Tasks
+_____
+
+Data:
 
 * **echo_data** - Dummy task that echoes the data passed to it.
 * **load_json** - Load a JSON file.
 * **load_yaml** - Load a YAML file.
+
+Files:
+
+* **write_file** - Writes content to files
