@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nornir_utils"
-version = "0.1.0a1"
+version = "0.1.0"
 description = "Collection of plugins and functions for nornir that don't require external dependencies"
 authors = ["David Barroso <dbarrosop@dravetech.com>"]
 license = "Apache-2.0"
@@ -10,7 +10,7 @@ license = "Apache-2.0"
 
 [tool.poetry.dependencies]
 python = "^3.6"
-nornir = { version = "~3.0.0a2", allow-prereleases = true }
+nornir = { version = "~3.0.0b1", allow-prereleases = true }
 colorama = "^0.4.3"
 
 [tool.poetry.dev-dependencies]
