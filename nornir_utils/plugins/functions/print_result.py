@@ -51,7 +51,11 @@ def _print_individual_result(
     )
     level_name = logging.getLevelName(result.severity_level)
     symbol = "v" if task_group else "-"
-    host = f"{result.host.name}: " if (print_host and result.host and result.host.name) else ""
+    host = (
+        f"{result.host.name}: "
+        if (print_host and result.host and result.host.name)
+        else ""
+    )
     msg = "{} {}{}{}".format(symbol * 4, host, result.name, subtitle)
     print(
         "{}{}{}{} {}".format(
@@ -99,7 +103,12 @@ def _print_result(
             _print_result(host_data, attrs, failed, severity_level)
     elif isinstance(result, MultiResult):
         _print_individual_result(
-            result[0], attrs, failed, severity_level, task_group=True, print_host=print_host,
+            result[0],
+            attrs,
+            failed,
+            severity_level,
+            task_group=True,
+            print_host=print_host,
         )
         for r in result[1:]:
             _print_result(r, attrs, failed, severity_level)
@@ -107,7 +116,9 @@ def _print_result(
         msg = "^^^^ END {} ".format(result[0].name)
         print("{}{}{}{}".format(Style.BRIGHT, color, msg, "^" * (80 - len(msg))))
     elif isinstance(result, Result):
-        _print_individual_result(result, attrs, failed, severity_level, print_host=print_host)
+        _print_individual_result(
+            result, attrs, failed, severity_level, print_host=print_host
+        )
 
 
 def print_result(
