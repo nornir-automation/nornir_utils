@@ -40,6 +40,7 @@ def _print_individual_result(
     failed: bool,
     severity_level: int,
     task_group: bool = False,
+    print_host: bool = False,
 ) -> None:
     if result.severity_level < severity_level:
         return
@@ -50,7 +51,12 @@ def _print_individual_result(
     )
     level_name = logging.getLevelName(result.severity_level)
     symbol = "v" if task_group else "-"
-    msg = "{} {}{}".format(symbol * 4, result.name, subtitle)
+    host = (
+        f"{result.host.name}: "
+        if (print_host and result.host and result.host.name)
+        else ""
+    )
+    msg = "{} {}{}{}".format(symbol * 4, host, result.name, subtitle)
     print(
         "{}{}{}{} {}".format(
             Style.BRIGHT, color, msg, symbol * (80 - len(msg)), level_name
@@ -75,6 +81,7 @@ def _print_result(
     attrs: List[str] = None,
     failed: bool = False,
     severity_level: int = logging.INFO,
+    print_host: bool = False,
 ) -> None:
     attrs = attrs or ["diff", "result", "stdout"]
     if isinstance(attrs, str):
@@ -96,7 +103,12 @@ def _print_result(
             _print_result(host_data, attrs, failed, severity_level)
     elif isinstance(result, MultiResult):
         _print_individual_result(
-            result[0], attrs, failed, severity_level, task_group=True
+            result[0],
+            attrs,
+            failed,
+            severity_level,
+            task_group=True,
+            print_host=print_host,
         )
         for r in result[1:]:
             _print_result(r, attrs, failed, severity_level)
@@ -104,7 +116,9 @@ def _print_result(
         msg = "^^^^ END {} ".format(result[0].name)
         print("{}{}{}{}".format(Style.BRIGHT, color, msg, "^" * (80 - len(msg))))
     elif isinstance(result, Result):
-        _print_individual_result(result, attrs, failed, severity_level)
+        _print_individual_result(
+            result, attrs, failed, severity_level, print_host=print_host
+        )
 
 
 def print_result(
@@ -124,6 +138,6 @@ def print_result(
     """
     LOCK.acquire()
     try:
-        _print_result(result, vars, failed, severity_level)
+        _print_result(result, vars, failed, severity_level, print_host=True)
     finally:
         LOCK.release()
