@@ -113,10 +113,10 @@ class YAMLInventory:
             for n, g in groups_dict.items():
                 groups[n] = _get_inventory_element(Group, g, n, defaults)
 
-            for h in hosts.values():
-                h.groups = ParentGroups([groups[g] for g in h.groups])
-
             for g in groups.values():
                 g.groups = ParentGroups([groups[g] for g in g.groups])
+
+        for h in hosts.values():
+            h.groups = ParentGroups([groups[g] for g in h.groups])
 
         return Inventory(hosts=hosts, groups=groups, defaults=defaults)
