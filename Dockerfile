@@ -7,7 +7,7 @@ ENV PATH="/root/.poetry/bin:$PATH" \
     NORNIR_TESTS=1
 
 RUN apt-get update \
-    && apt-get install -yq curl git pandoc make \
+    && apt-get install -yq curl git pandoc make gcc \
     && curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python \
     && poetry config virtualenvs.create false
 

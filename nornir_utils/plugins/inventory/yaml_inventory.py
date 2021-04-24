@@ -19,7 +19,7 @@ import ruamel.yaml
 logger = logging.getLogger(__name__)
 
 
-def _get_connection_options(data: Dict[str, Any]) -> ConnectionOptions:
+def _get_connection_options(data: Dict[str, Any]) -> Dict[str, ConnectionOptions]:
     cp = {}
     for cn, c in data.items():
         cp[cn] = ConnectionOptions(
