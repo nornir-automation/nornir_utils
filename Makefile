@@ -3,7 +3,7 @@ NAME=$(shell basename $(PWD))
 PYTHON:=3.7
 
 DOCKER=docker run \
-	   --rm -ir \
+	   --rm -it \
 	   --name $(NAME)-tests \
 	   -v $(PWD):/$(NAME) \
 	   --rm $(NAME):latest
@@ -36,9 +36,8 @@ mypy:
 
 .PHONY: tests
 tests: black pylama mypy pytest
-.PHONY: docker-tests
 
-.PHONY:docker-tests
+.PHONY: docker-tests
 docker-tests: docker
 	$(DOCKER) make tests
 
@@ -47,6 +46,7 @@ jupyter:
 	docker run \
 	--name $(NAME)-jupyter --rm \
 	-v $(PWD):/$(NAME) \
+	-p 8888:8888 \
 	$(NAME):latest \
 		jupyter notebook \
 			--allow-root \
