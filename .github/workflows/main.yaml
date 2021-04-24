@@ -14,13 +14,13 @@ jobs:
       - name: Install and configure Poetry
         uses: snok/install-poetry@v1.1.4
         with:
-          virtualenvs-path: {cache-dir}/virtualenvs
+          virtualenvs-path: ~/.virtualenvs
 
       - name: Cache Poetry virtualenv
         uses: actions/cache@v1
         id: cache
         with:
-          path: {cache-dir}/virtualenvs
+          path: ~/.virtualenvs
           key: poetry-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
           restore-keys: poetry-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
@@ -52,13 +52,13 @@ jobs:
       - name: Install and configure Poetry
         uses: snok/install-poetry@v1.1.4
         with:
-          virtualenvs-path: {cache-dir}/virtualenvs
+          virtualenvs-path: ~/.virtualenvs
 
       - name: Cache Poetry virtualenv
         uses: actions/cache@v1
         id: cache
         with:
-          path: {cache-dir}/virtualenvs
+          path: ~/.virtualenvs
           key: poetry-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
           restore-keys: poetry-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
