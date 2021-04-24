@@ -32,7 +32,7 @@ pylama:
 
 .PHONY: mypy
 mypy:
-	poetry run mypy .
+	poetry run mypy nornir_utils
 
 .PHONY: tests
 tests: black pylama mypy pytest
