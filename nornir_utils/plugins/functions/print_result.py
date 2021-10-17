@@ -1,7 +1,8 @@
 import logging
 import pprint
 import threading
-from typing import List, cast
+from itertools import islice
+from typing import List, cast, Optional
 from collections import OrderedDict
 import json
 
@@ -21,7 +22,9 @@ def print_title(title: str) -> None:
     Helper function to print a title.
     """
     msg = "**** {} ".format(title)
-    print("{}{}{}{}".format(Style.BRIGHT, Fore.GREEN, msg, "*" * (80 - len(msg))))
+    print("{}{}{}{}".format(
+        Style.BRIGHT, Fore.GREEN, msg, "*" * (80 - len(msg)))
+    )
 
 
 def _get_color(result: Result, failed: bool) -> str:
@@ -47,7 +50,9 @@ def _print_individual_result(
 
     color = _get_color(result, failed)
     subtitle = (
-        "" if result.changed is None else " ** changed : {} ".format(result.changed)
+        "" if result.changed is None else " ** changed : {} ".format(
+            result.changed
+        )
     )
     level_name = logging.getLevelName(result.severity_level)
     symbol = "v" if task_group else "-"
@@ -82,6 +87,7 @@ def _print_result(
     failed: bool = False,
     severity_level: int = logging.INFO,
     print_host: bool = False,
+    count: Optional[int] = None,
 ) -> None:
     attrs = attrs or ["diff", "result", "stdout"]
     if isinstance(attrs, str):
@@ -89,8 +95,22 @@ def _print_result(
 
     if isinstance(result, AggregatedResult):
         msg = result.name
-        print("{}{}{}{}".format(Style.BRIGHT, Fore.CYAN, msg, "*" * (80 - len(msg))))
-        for host, host_data in sorted(result.items()):
+        msg = "{}{}{}{}".format(
+            Style.BRIGHT, Fore.CYAN, msg, "*" * (80 - len(msg))
+        )
+        result = dict(sorted(result.items()))
+        if count != 0:
+            print(msg)
+        if isinstance(count, int):
+            length = len(result)
+            if count >= 0:
+                _ = [0, length and count]
+            elif (length + count) < 0:
+                _ = [0, length]
+            else:
+                _ = [length + count, length]
+            result = dict(islice(result.items(), *_))
+        for host, host_data in result.items():
             title = (
                 ""
                 if host_data.changed is None
@@ -98,7 +118,9 @@ def _print_result(
             )
             msg = "* {}{}".format(host, title)
             print(
-                "{}{}{}{}".format(Style.BRIGHT, Fore.BLUE, msg, "*" * (80 - len(msg)))
+                "{}{}{}{}".format(
+                    Style.BRIGHT, Fore.BLUE, msg, "*" * (80 - len(msg))
+                )
             )
             _print_result(host_data, attrs, failed, severity_level)
     elif isinstance(result, MultiResult):
@@ -114,7 +136,9 @@ def _print_result(
             _print_result(r, attrs, failed, severity_level)
         color = _get_color(result[0], failed)
         msg = "^^^^ END {} ".format(result[0].name)
-        print("{}{}{}{}".format(Style.BRIGHT, color, msg, "^" * (80 - len(msg))))
+        print("{}{}{}{}".format(
+            Style.BRIGHT, color, msg, "^" * (80 - len(msg)))
+        )
     elif isinstance(result, Result):
         _print_individual_result(
             result, attrs, failed, severity_level, print_host=print_host
@@ -126,18 +150,35 @@ def print_result(
     vars: List[str] = None,
     failed: bool = False,
     severity_level: int = logging.INFO,
+    print_host: bool = True,
+    count: Optional[int] = None,
 ) -> None:
     """
     Prints an object of type `nornir.core.task.Result`
 
     Arguments:
+
       result: from a previous task
+
       vars: Which attributes you want to print
+
       failed: if ``True`` assume the task failed
+
       severity_level: Print only errors with this severity level or higher
+
+      count: Number of sorted results. It's acceptable
+      to use numbers with minus sign(-5 as example),
+      then results will be from the end of results list
     """
     LOCK.acquire()
     try:
-        _print_result(result, vars, failed, severity_level, print_host=True)
+        _print_result(
+            result,
+            vars,
+            failed=failed,
+            severity_level=severity_level,
+            print_host=print_host,
+            count=count,
+        )
     finally:
         LOCK.release()
