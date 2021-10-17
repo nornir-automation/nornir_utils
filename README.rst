@@ -33,6 +33,7 @@ _________
 * **print_title** - Formats nicely a title and prints it on stdout.
 * **print_stat** - Prints result statistic on stdout. 
 * **write_result** - Write result to file.
+* **write_results** - Write results to files.
 
 Processors
 __________
