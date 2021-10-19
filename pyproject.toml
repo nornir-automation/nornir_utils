@@ -8,6 +8,9 @@ license = "Apache-2.0"
 [tool.poetry.plugins."nornir.plugins.inventory"]
 "YAMLInventory" = "nornir_utils.plugins.inventory.yaml_inventory:YAMLInventory"
 
+[tool.poetry.plugins."nornir.plugins.transform_function"]
+"load_credentials" = "nornir_utils.plugins.inventory.transform_functions:load_credentials"
+
 [tool.poetry.dependencies]
 python = "^3.6"
 nornir = { version = "~3", allow-prereleases = true }
