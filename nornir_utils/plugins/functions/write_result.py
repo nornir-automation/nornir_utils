@@ -4,31 +4,14 @@ import logging
 import threading
 import json
 from pathlib import Path
-from itertools import islice
-from typing import List, Optional, IO, AnyStr, Dict, Any
+from typing import List, Optional, IO, AnyStr
 from nornir_utils.plugins.tasks.files.write_file import _read_file
+from nornir_utils.plugins.functions.print_result import _slice_result
 
 from nornir.core.task import AggregatedResult, MultiResult, Result
 
 
 LOCK = threading.Lock()
-
-
-def _slice_result(
-    result: AggregatedResult,
-    count: Optional[int] = None,
-):
-    results: Dict[Any, Any] = dict(sorted(result.items()))
-    if isinstance(count, int):
-        length = len(results)
-        if count >= 0:
-            _ = [0, length and count]
-        elif (length + count) < 0:
-            _ = [0, length]
-        else:
-            _ = [length + count, length]
-        results = dict(islice(results.items(), *_))
-    return results
 
 
 def _generate_diff(
@@ -178,23 +161,15 @@ def write_result(
 
     Arguments:
       result: from a previous task (Result or AggregatedResult or MultiResult)
-
       filename: file you want to write the result
-
       vars: Which attributes you want to write(see ``class Result`` attributes)
-
       failed: if ``True`` assume the task failed
-
       severity_level: Print only errors with this severity level or higher
-
       write_host: Write hostname to file
-
       count: Number of sorted results. It's acceptable
       to use numbers with minus sign(-5 as example),
       then results will be from the end of results list
-
       append: "a+" if ``True`` or "w+" if ``False``
-
       no_errors: Don't write results with errors
     """
     old_lines = _read_file(filename)
