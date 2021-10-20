@@ -21,13 +21,7 @@ def _slice_result(
     result: AggregatedResult,
     count: Optional[int] = None,
 ):
-    msg = result.name
-    msg = "{}{}{}{}".format(
-        Style.BRIGHT, Fore.CYAN, msg, "*" * (80 - len(msg))
-    )
     results: Dict[Any, Any] = dict(sorted(result.items()))
-    if count != 0:
-        print(msg)
     if isinstance(count, int):
         length = len(results)
         if count >= 0:
@@ -117,6 +111,12 @@ def _print_result(
         attrs = [attrs]
 
     if isinstance(result, AggregatedResult):
+        msg = result.name
+        msg = "{}{}{}{}".format(
+            Style.BRIGHT, Fore.CYAN, msg, "*" * (80 - len(msg))
+        )
+        if count != 0:
+            print(msg)
         result = _slice_result(result, count)
         for host, host_data in result.items():
             title = (
