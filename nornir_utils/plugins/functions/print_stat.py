@@ -1,7 +1,9 @@
 import threading
-from itertools import islice
-from typing import Optional, Tuple, Dict, Any
-from nornir_utils.plugins.functions.print_result import _get_color
+from typing import Optional, Tuple
+from nornir_utils.plugins.functions.print_result import (
+    _get_color,
+    _slice_result,
+)
 
 from colorama import Fore, Style, init
 
@@ -12,29 +14,6 @@ LOCK = threading.Lock()
 
 
 init(autoreset=True, strip=False)
-
-
-def _slice_result(
-    result: AggregatedResult,
-    count: Optional[int] = None,
-):
-    msg = result.name
-    msg = "{}{}{}{}".format(
-        Style.BRIGHT, Fore.CYAN, msg, "*" * (80 - len(msg))
-    )
-    results: Dict[Any, Any] = dict(sorted(result.items()))
-    if count != 0:
-        print(msg)
-    if isinstance(count, int):
-        length = len(results)
-        if count >= 0:
-            _ = [0, length and count]
-        elif (length + count) < 0:
-            _ = [0, length]
-        else:
-            _ = [length + count, length]
-        results = dict(islice(results.items(), *_))
-    return results
 
 
 def _print_individual_stat(
@@ -67,6 +46,12 @@ def _print_stat(
 ) -> Tuple[int, int, int]:
 
     if isinstance(result, AggregatedResult):
+        msg = result.name
+        msg = "{}{}{}{}".format(
+            Style.BRIGHT, Fore.CYAN, msg, "*" * (80 - len(msg))
+        )
+        if count != 0:
+            print(msg)
         result = _slice_result(result, count)
         for host, host_data in result.items():
             msg_host = "* {} ".format(host)
@@ -99,9 +84,7 @@ def print_stat(result: Result, count: Optional[int] = None) -> None:
     Prints statistic for `nornir.core.task.Result` object
 
     Arguments:
-
       result: from a previous task
-
       count: Number of sorted results. It's acceptable
       to use numbers with minus sign(-5 as example),
       then results will be from the end of results list
