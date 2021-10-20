@@ -4,9 +4,10 @@ import difflib
 import logging
 import threading
 from pathlib import Path
-from itertools import islice
 from typing import List, Optional, Tuple, NamedTuple
 from nornir.core.task import AggregatedResult, MultiResult, Result
+from nornir_utils.plugins.functions.print_result import _slice_result
+
 from nornir_utils.plugins.tasks.files.write_file import _read_file
 
 
@@ -73,9 +74,9 @@ def _write_individual_result(
     old_lines = _read_file(filepath)
 
     subtitle = (
-        "" if result.changed is None else " ** changed : {} ".format(
-            result.changed
-        )
+        ""
+        if result.changed is None
+        else " ** changed : {} ".format(result.changed)
     )
     level_name = logging.getLevelName(result.severity_level)
     symbol = "v" if task_group else "-"
@@ -92,9 +93,9 @@ def _write_individual_result(
         elif x and not isinstance(x, str):
             try:
                 individual_result.append(
-                    json.dumps(
-                        x, indent=2, ensure_ascii=False
-                    ).encode("utf-8").decode()
+                    json.dumps(x, indent=2, ensure_ascii=False)
+                    .encode("utf-8")
+                    .decode()
                 )
             except TypeError:
                 individual_result.append(str(x))
@@ -131,18 +132,7 @@ def _write_results(
         attrs = [attrs]
 
     if isinstance(result, AggregatedResult):
-        result = dict(sorted(result.items()))
-
-        if isinstance(count, int):
-            length = len(result)
-            if count >= 0:
-                _ = [0, length and count]
-            elif (length + count) < 0:
-                _ = [0, length]
-            else:
-                _ = [length + count, length]
-            result = dict(islice(result.items()), *_)
-
+        result = _slice_result(result, count)
         for host_data in result.values():
             content = _write_results(
                 host_data,
@@ -200,25 +190,16 @@ def write_results(
     to files with hostname names
 
     Arguments:
-
       result: from a previous task(Result or AggregatedResult or MultiResult)
-
       dirname: directory you want to write into
-
       vars: Which attributes you want to write(see ``class Result`` attributes)
-
       failed: if ``True`` assume the task failed
-
       severity_level: Print only errors with this severity level or higher
-
       write_host: Write hostname to file
-
       count: Number of sorted results. It's acceptable
       to use numbers with minus sign(-5 as example),
       then results will be from the end of results list
-
       no_errors: Don't write results with errors
-
       append: "a+" if ``True`` or "w+" if ``False``
     """
     Path(dirname).mkdir(parents=True, exist_ok=True)
@@ -247,9 +228,9 @@ def write_results(
             path = os.path.join(dirname, value.name)
             with open(path, mode=mode) as f:
 
-                lf = "\n\n" if Path(
-                    path
-                ).stat().st_size != 0 and append else ""
+                lf = (
+                    "\n\n" if Path(path).stat().st_size != 0 and append else ""
+                )
 
                 f.write(lf + "\n\n".join(value.res))
             diffs.append((value.name, value.diff))

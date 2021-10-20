@@ -2,7 +2,7 @@ import logging
 import pprint
 import threading
 from itertools import islice
-from typing import List, cast, Optional
+from typing import List, cast, Optional, Dict, Any
 from collections import OrderedDict
 import json
 
@@ -17,13 +17,30 @@ LOCK = threading.Lock()
 init(autoreset=True, strip=False)
 
 
+def _slice_result(
+    result: AggregatedResult,
+    count: Optional[int] = None,
+):
+    results: Dict[Any, Any] = dict(sorted(result.items()))
+    if isinstance(count, int):
+        length = len(results)
+        if count >= 0:
+            _ = [0, length and count]
+        elif (length + count) < 0:
+            _ = [0, length]
+        else:
+            _ = [length + count, length]
+        results = dict(islice(results.items(), *_))
+    return results
+
+
 def print_title(title: str) -> None:
     """
     Helper function to print a title.
     """
     msg = "**** {} ".format(title)
-    print("{}{}{}{}".format(
-        Style.BRIGHT, Fore.GREEN, msg, "*" * (80 - len(msg)))
+    print(
+        "{}{}{}{}".format(Style.BRIGHT, Fore.GREEN, msg, "*" * (80 - len(msg)))
     )
 
 
@@ -50,9 +67,9 @@ def _print_individual_result(
 
     color = _get_color(result, failed)
     subtitle = (
-        "" if result.changed is None else " ** changed : {} ".format(
-            result.changed
-        )
+        ""
+        if result.changed is None
+        else " ** changed : {} ".format(result.changed)
     )
     level_name = logging.getLevelName(result.severity_level)
     symbol = "v" if task_group else "-"
@@ -98,18 +115,9 @@ def _print_result(
         msg = "{}{}{}{}".format(
             Style.BRIGHT, Fore.CYAN, msg, "*" * (80 - len(msg))
         )
-        result = dict(sorted(result.items()))
         if count != 0:
             print(msg)
-        if isinstance(count, int):
-            length = len(result)
-            if count >= 0:
-                _ = [0, length and count]
-            elif (length + count) < 0:
-                _ = [0, length]
-            else:
-                _ = [length + count, length]
-            result = dict(islice(result.items(), *_))
+        result = _slice_result(result, count)
         for host, host_data in result.items():
             title = (
                 ""
@@ -136,8 +144,8 @@ def _print_result(
             _print_result(r, attrs, failed, severity_level)
         color = _get_color(result[0], failed)
         msg = "^^^^ END {} ".format(result[0].name)
-        print("{}{}{}{}".format(
-            Style.BRIGHT, color, msg, "^" * (80 - len(msg)))
+        print(
+            "{}{}{}{}".format(Style.BRIGHT, color, msg, "^" * (80 - len(msg)))
         )
     elif isinstance(result, Result):
         _print_individual_result(
@@ -150,22 +158,16 @@ def print_result(
     vars: List[str] = None,
     failed: bool = False,
     severity_level: int = logging.INFO,
-    print_host: bool = True,
     count: Optional[int] = None,
 ) -> None:
     """
     Prints an object of type `nornir.core.task.Result`
 
     Arguments:
-
       result: from a previous task
-
       vars: Which attributes you want to print
-
       failed: if ``True`` assume the task failed
-
       severity_level: Print only errors with this severity level or higher
-
       count: Number of sorted results. It's acceptable
       to use numbers with minus sign(-5 as example),
       then results will be from the end of results list
@@ -177,7 +179,7 @@ def print_result(
             vars,
             failed=failed,
             severity_level=severity_level,
-            print_host=print_host,
+            print_host=True,
             count=count,
         )
     finally:

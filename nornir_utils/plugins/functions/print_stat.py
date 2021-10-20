@@ -1,12 +1,17 @@
 import threading
-from itertools import islice
 from typing import Optional, Tuple
+from nornir_utils.plugins.functions.print_result import (
+    _get_color,
+    _slice_result,
+)
+
 from colorama import Fore, Style, init
-from nornir_utils.plugins.functions.print_result import _get_color
+
 from nornir.core.task import AggregatedResult, MultiResult, Result
 
 
 LOCK = threading.Lock()
+
 
 init(autoreset=True, strip=False)
 
@@ -42,53 +47,33 @@ def _print_stat(
 
     if isinstance(result, AggregatedResult):
         msg = result.name
-        msg = "{}{}{}{}".format(Style.BRIGHT, Fore.CYAN, msg, "*" * (
-            80 - len(msg))
+        msg = "{}{}{}{}".format(
+            Style.BRIGHT, Fore.CYAN, msg, "*" * (80 - len(msg))
         )
-
-        result = dict(sorted(result.items()))
-
         if count != 0:
             print(msg)
-        if isinstance(count, int):
-            length = len(result)
-            if count >= 0:
-                _ = [0, length and count]
-            elif (length + count) < 0:
-                _ = [0, length]
-            else:
-                _ = [length + count, length]
-            result = dict(islice(result.items(), *_))
-
+        result = _slice_result(result, count)
         for host, host_data in result.items():
             msg_host = "* {} ".format(host)
             print(
-                "{}{}{}{}".format(Style.BRIGHT, Fore.BLUE, msg_host, "*" * (
-                    80 - len(msg_host))
+                "{}{}{}{}".format(
+                    Style.BRIGHT,
+                    Fore.BLUE,
+                    msg_host,
+                    "*" * (80 - len(msg_host)),
                 )
             )
             res_sum, ch_sum, f_sum = _print_stat(
-                host_data,
-                count,
-                res_sum,
-                ch_sum,
-                f_sum
+                host_data, count, res_sum, ch_sum, f_sum
             )
     elif isinstance(result, MultiResult):
         for res in result:
             res_sum, ch_sum, f_sum = _print_stat(
-                res,
-                count,
-                res_sum,
-                ch_sum,
-                f_sum
+                res, count, res_sum, ch_sum, f_sum
             )
     elif isinstance(result, Result):
         res_sum, ch_sum, f_sum = _print_individual_stat(
-            result,
-            res_sum,
-            ch_sum,
-            f_sum
+            result, res_sum, ch_sum, f_sum
         )
 
     return res_sum, ch_sum, f_sum
@@ -99,9 +84,7 @@ def print_stat(result: Result, count: Optional[int] = None) -> None:
     Prints statistic for `nornir.core.task.Result` object
 
     Arguments:
-
       result: from a previous task
-
       count: Number of sorted results. It's acceptable
       to use numbers with minus sign(-5 as example),
       then results will be from the end of results list
