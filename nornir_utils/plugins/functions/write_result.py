@@ -5,12 +5,30 @@ import threading
 import json
 from pathlib import Path
 from itertools import islice
-from typing import List, Optional, IO, AnyStr
-from nornir.core.task import AggregatedResult, MultiResult, Result
+from typing import List, Optional, IO, AnyStr, Dict, Any
 from nornir_utils.plugins.tasks.files.write_file import _read_file
+
+from nornir.core.task import AggregatedResult, MultiResult, Result
 
 
 LOCK = threading.Lock()
+
+
+def _slice_result(
+    result: AggregatedResult,
+    count: Optional[int] = None,
+):
+    results: Dict[Any, Any] = dict(sorted(result.items()))
+    if isinstance(count, int):
+        length = len(results)
+        if count >= 0:
+            _ = [0, length and count]
+        elif (length + count) < 0:
+            _ = [0, length]
+        else:
+            _ = [length + count, length]
+        results = dict(islice(results.items(), *_))
+    return results
 
 
 def _generate_diff(
@@ -55,9 +73,9 @@ def _write_individual_result(
             return content
 
     subtitle = (
-        "" if result.changed is None else " ** changed : {} ".format(
-            result.changed
-        )
+        ""
+        if result.changed is None
+        else " ** changed : {} ".format(result.changed)
     )
     level_name = logging.getLevelName(result.severity_level)
     symbol = "v" if task_group else "-"
@@ -76,9 +94,9 @@ def _write_individual_result(
         elif x and not isinstance(x, str):
             try:
                 content.append(
-                    json.dumps(
-                        x, indent=2, ensure_ascii=False
-                    ).encode("utf-8").decode()
+                    json.dumps(x, indent=2, ensure_ascii=False)
+                    .encode("utf-8")
+                    .decode()
                 )
             except TypeError:
                 content.append(str(x))
@@ -105,18 +123,7 @@ def _write_result(
         attrs = [attrs]
 
     if isinstance(result, AggregatedResult):
-        result = dict(sorted(result.items()))
-
-        if isinstance(count, int):
-            length = len(result)
-            if count >= 0:
-                _ = [0, length and count]
-            elif (length + count) < 0:
-                _ = [0, length]
-            else:
-                _ = [length + count, length]
-            result = dict(islice(result.items(), *_))
-
+        result = _slice_result(result, count)
         for host_data in result.values():
             content = _write_result(
                 host_data,
@@ -213,9 +220,9 @@ def write_result(
                 content=[],
             )
 
-            lf = '\n\n' if Path(
-                filename
-            ).stat().st_size != 0 and append else ''
+            lf = (
+                "\n\n" if Path(filename).stat().st_size != 0 and append else ""
+            )
 
             lines = [line.strip() for line in content]
             line = lf + "\n\n".join(lines)
