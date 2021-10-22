@@ -15,9 +15,9 @@ def load_credentials(
         username: Device username
         password: Device password
     """
-    username = username if username else os.getenv("NORNIR_USERNAME")
+    username = username if username is not None else os.getenv("NORNIR_USERNAME")
     if username is not None:
         host.username = username
-    password = password if password else os.getenv("NORNIR_PASSWORD")
+    password = password if password is not None else os.getenv("NORNIR_PASSWORD")
     if password is not None:
         host.password = password
