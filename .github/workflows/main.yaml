@@ -43,6 +43,8 @@ jobs:
         python-version: [ '3.6', '3.7', '3.8' ]
     steps:
       - uses: actions/checkout@v2
+      - name: Start dev env
+        run: make start_dev_env
       - name: Setup python
         uses: actions/setup-python@v1
         with:
