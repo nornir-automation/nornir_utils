@@ -114,7 +114,8 @@ def _print_result(
             _print_result(r, attrs, failed, severity_level)
         color = _get_color(result[0], failed)
         msg = "^^^^ END {} ".format(result[0].name)
-        print("{}{}{}{}".format(Style.BRIGHT, color, msg, "^" * (80 - len(msg))))
+        if result[0].severity_level >= severity_level:
+            print("{}{}{}{}".format(Style.BRIGHT, color, msg, "^" * (80 - len(msg))))
     elif isinstance(result, Result):
         _print_individual_result(
             result, attrs, failed, severity_level, print_host=print_host
