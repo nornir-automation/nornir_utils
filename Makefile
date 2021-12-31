@@ -2,6 +2,9 @@ NAME=$(shell basename $(PWD))
 
 PYTHON:=3.7
 
+DOCKER_COMPOSE_FILE=docker-compose.yml
+DOCKER_COMPOSE=docker-compose -f ${DOCKER_COMPOSE_FILE}
+
 DOCKER=docker run \
 	   --rm -it \
 	   --name $(NAME)-tests \
@@ -17,6 +20,15 @@ docker:
 	-f Dockerfile \
 	.
 
+.PHONY: start_dev_env
+start_dev_env:
+	${DOCKER_COMPOSE} \
+		up -d
+
+.PHONY: stop_dev_env
+stop_dev_env:
+	${DOCKER_COMPOSE} \
+		down
 .PHONY: pytest
 pytest:
 	rm -f docs/source/tutorials/out_files/*.txt
@@ -37,12 +49,16 @@ mypy:
 .PHONY: tests
 tests: black pylama mypy pytest
 
+.PHONY:
+jupyter:
+	poetry run jupyter notebook --no-browser
+
 .PHONY: docker-tests
 docker-tests: docker
 	$(DOCKER) make tests
 
-.PHONY: jupyter
-jupyter:
+.PHONY: docker-jupyter
+docker-jupyter:
 	docker run \
 	--name $(NAME)-jupyter --rm \
 	-v $(PWD):/$(NAME) \
