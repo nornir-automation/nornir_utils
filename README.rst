@@ -31,6 +31,9 @@ _________
 
 * **print_result** - Formats nicely and prints results on stdout.
 * **print_title** - Formats nicely a title and prints it on stdout.
+* **print_stat** - Prints results statistic on stdout.
+* **write_result** - Writes results to file.
+* **write_results** - Writes results to files.
 
 Processors
 __________
