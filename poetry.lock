@@ -667,7 +667,7 @@ docs = ["sphinx (>=1,<2)", "sphinx_rtd_theme (>=0.4,<0.5)", "sphinxcontrib-napol
 
 [[package]]
 name = "notebook"
-version = "6.4.6"
+version = "6.4.10"
 description = "A web-based notebook environment for interactive computing"
 category = "dev"
 optional = false
@@ -680,7 +680,7 @@ ipython-genutils = "*"
 jinja2 = "*"
 jupyter-client = ">=5.3.4"
 jupyter-core = ">=4.6.1"
-nbconvert = "*"
+nbconvert = ">=5"
 nbformat = "*"
 nest-asyncio = ">=1.5"
 prometheus-client = "*"
@@ -1767,8 +1767,8 @@ nornir = [
     {file = "nornir-3.2.0.tar.gz", hash = "sha256:bd272ce559c76755c601c3cba4263672ae9aee9a0cba91497fb5645d524ad822"},
 ]
 notebook = [
-    {file = "notebook-6.4.6-py3-none-any.whl", hash = "sha256:5cad068fa82cd4fb98d341c052100ed50cd69fbfb4118cb9b8ab5a346ef27551"},
-    {file = "notebook-6.4.6.tar.gz", hash = "sha256:7bcdf79bd1cda534735bd9830d2cbedab4ee34d8fe1df6e7b946b3aab0902ba3"},
+    {file = "notebook-6.4.10-py3-none-any.whl", hash = "sha256:49cead814bff0945fcb2ee07579259418672ac175d3dc3d8102a4b0a656ed4df"},
+    {file = "notebook-6.4.10.tar.gz", hash = "sha256:2408a76bc6289283a8eecfca67e298ec83c67db51a4c2e1b713dd180bb39e90e"},
 ]
 packaging = [
     {file = "packaging-21.3-py3-none-any.whl", hash = "sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522"},
