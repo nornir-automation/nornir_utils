@@ -17,8 +17,10 @@ def print_title(title: str) -> None:
     """
     Helper function to print a title.
     """
+    init(autoreset=True, strip=False)
     msg = "**** {} ".format(title)
     print("{}{}{}{}".format(Style.BRIGHT, Fore.GREEN, msg, "*" * (80 - len(msg))))
+    deinit()
 
 
 def _get_color(result: Result, failed: bool) -> str:
