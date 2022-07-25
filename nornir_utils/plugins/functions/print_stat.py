@@ -1,16 +1,10 @@
-import threading
 from typing import Tuple
-from nornir_utils.plugins.functions.print_result import _get_color
 
-from colorama import Fore, Style, init
+from colorama import Fore, Style
 
 from nornir.core.task import AggregatedResult, MultiResult, Result
 
-
-LOCK = threading.Lock()
-
-
-init(autoreset=True, strip=False)
+from nornir_utils.plugins.functions.print_result import LOCK, _get_color
 
 
 def _print_individual_stat(

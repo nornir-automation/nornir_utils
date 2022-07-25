@@ -1,10 +1,12 @@
-import os
 import json
 import logging
+import os
 import threading
 from pathlib import Path
-from typing import List, Tuple, Dict
+from typing import Dict, List, Tuple
+
 from nornir.core.task import AggregatedResult, MultiResult, Result
+
 from nornir_utils.plugins.tasks.files.write_file import _generate_diff
 
 
@@ -13,16 +15,17 @@ LOCK = threading.Lock()
 
 def _write_individual_result(
     result: Result,
-    dirname: str,
     attrs: List[str],
     failed: bool,
     severity_level: int,
     task_group: bool = False,
     write_host: bool = False,
     no_errors: bool = False,
-    append: bool = False,
-    content: Dict[str, List[str]] = {},
+    content: Dict[str, List[str]] = None,
 ) -> Dict[str, List[str]]:
+
+    if content is None:
+        content = {}
 
     individual_result = []
 
@@ -69,15 +72,16 @@ def _write_individual_result(
 
 def _write_results(
     result: Result,
-    dirname: str,
     attrs: List[str] = None,
     failed: bool = False,
     severity_level: int = logging.INFO,
     write_host: bool = False,
     no_errors: bool = False,
-    append: bool = False,
-    content: Dict[str, List[str]] = {},
+    content: Dict[str, List[str]] = None,
 ) -> Dict[str, List[str]]:
+
+    if content is None:
+        content = {}
 
     attrs = attrs or ["diff", "result", "stdout"]
     if isinstance(attrs, str):
@@ -87,13 +91,11 @@ def _write_results(
         for host_data in result.values():
             content = _write_results(
                 host_data,
-                dirname,
                 attrs,
                 failed,
                 severity_level,
                 write_host,
                 no_errors=no_errors,
-                append=append,
                 content=content,
             )
     elif isinstance(result, MultiResult):
@@ -107,25 +109,21 @@ def _write_results(
                 continue
             content = _write_results(
                 r,
-                dirname,
                 attrs,
                 failed,
                 severity_level,
                 write_host,
                 no_errors=no_errors,
-                append=append,
                 content=content,
             )
     elif isinstance(result, Result):
         content = _write_individual_result(
             result,
-            dirname,
             attrs,
             failed,
             severity_level,
             write_host=write_host,
             no_errors=no_errors,
-            append=append,
             content=content,
         )
 
@@ -173,13 +171,11 @@ def write_results(
     try:
         content: Dict[str, List[str]] = _write_results(
             result,
-            dirname,
             attrs=vars,
             failed=failed,
             severity_level=severity_level,
             write_host=write_host,
             no_errors=no_errors,
-            append=append,
             content={},
         )
 

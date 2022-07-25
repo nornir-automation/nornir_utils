@@ -1,11 +1,13 @@
-import os
-import logging
-import threading
 import json
+import logging
+import os
+import threading
 from pathlib import Path
-from typing import List, IO, AnyStr
-from nornir_utils.plugins.tasks.files.write_file import _generate_diff
+from typing import List
+
 from nornir.core.task import AggregatedResult, MultiResult, Result
+
+from nornir_utils.plugins.tasks.files.write_file import _generate_diff
 
 
 LOCK = threading.Lock()
@@ -13,24 +15,25 @@ LOCK = threading.Lock()
 
 def _write_individual_result(
     result: Result,
-    io: IO[AnyStr],
     attrs: List[str],
     failed: bool,
     severity_level: int,
     task_group: bool = False,
     write_host: bool = False,
     no_errors: bool = False,
-    content: List[str] = [],
+    content: List[str] = None,
 ) -> List[str]:
+
+    if content is None:
+        content = []
 
     # ignore results with a specific severity_level
     if result.severity_level < severity_level:
         return content
 
     # ignore results with errors
-    if no_errors:
-        if result.exception:
-            return content
+    if no_errors and result.exception:
+        return content
 
     subtitle = (
         "" if result.changed is None else " ** changed : {} ".format(result.changed)
@@ -64,14 +67,16 @@ def _write_individual_result(
 
 def _write_result(
     result: Result,
-    io: IO[AnyStr],
     attrs: List[str] = None,
     failed: bool = False,
     severity_level: int = logging.INFO,
     write_host: bool = False,
     no_errors: bool = False,
-    content: List[str] = [],
+    content: List[str] = None,
 ) -> List[str]:
+
+    if content is None:
+        content = []
 
     attrs = attrs or ["diff", "result", "stdout"]
     if isinstance(attrs, str):
@@ -81,7 +86,6 @@ def _write_result(
         for host_data in result.values():
             content = _write_result(
                 host_data,
-                io,
                 attrs,
                 failed,
                 severity_level,
@@ -93,7 +97,6 @@ def _write_result(
         for r in result:
             content = _write_result(
                 r,
-                io,
                 attrs,
                 failed,
                 severity_level,
@@ -104,7 +107,6 @@ def _write_result(
     elif isinstance(result, Result):
         content = _write_individual_result(
             result,
-            io,
             attrs,
             failed,
             severity_level,
@@ -159,7 +161,6 @@ def write_result(
         with open(filename, mode=mode) as f:
             content: List[str] = _write_result(
                 result,
-                io=f,
                 attrs=vars,
                 failed=failed,
                 severity_level=severity_level,

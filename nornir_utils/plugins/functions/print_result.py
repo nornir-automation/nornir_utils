@@ -5,15 +5,12 @@ from typing import List, cast
 from collections import OrderedDict
 import json
 
-from colorama import Fore, Style, init
+from colorama import Fore, Style
 
 from nornir.core.task import AggregatedResult, MultiResult, Result
 
 
 LOCK = threading.Lock()
-
-
-init(autoreset=True, strip=False)
 
 
 def print_title(title: str) -> None:
