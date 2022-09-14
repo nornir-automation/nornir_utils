@@ -4,7 +4,7 @@ from colorama import Fore, Style
 
 from nornir.core.task import AggregatedResult, MultiResult, Result
 
-from nornir_utils.plugins.functions.print_result import LOCK, _get_color
+from .print_result import LOCK, _get_color
 
 
 def _print_individual_stat(
@@ -21,10 +21,11 @@ def _print_individual_stat(
     f_sum += int(f)
 
     color = _get_color(result, f)
+
     msg = "{:<35} ok={:<15} changed={:<15} failed={:<15}".format(
         result.name, not f, ch, f
     )
-    print("    {}{}{}".format(Style.BRIGHT, color, msg))
+    print("{}{}{}".format(Style.BRIGHT, color, msg))
     return res_sum, ch_sum, f_sum
 
 
