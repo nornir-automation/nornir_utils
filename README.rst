@@ -25,6 +25,7 @@ Inventory
 _________
 
 * **YAMLInventory** - Create an inventory from yaml files
+* **load_credentials** - Transform function to load credentials from venv
 
 Functions
 _________

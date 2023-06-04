@@ -1,87 +1,52 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>inventory: YAMLInventory &mdash; nornir_utils  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="load_json" href="load_json.html" />
+    <link rel="next" title="load_credentials" href="load_credentials.html" />
     <link rel="prev" title="functions: print_result" href="function_print_title.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
 
           
-            <a href="../index.html" class="icon icon-home"> nornir_utils
           
-
-          
+          <a href="../index.html" class="icon icon-home">
+            nornir_utils
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
@@ -93,98 +58,75 @@
 <li class="toctree-l3"><a class="reference internal" href="#Example">Example</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="load_credentials.html">load_credentials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="load_json.html">load_json</a></li>
 <li class="toctree-l2"><a class="reference internal" href="load_yaml.html">load_yaml</a></li>
 <li class="toctree-l2"><a class="reference internal" href="processor_PrintResult.html">processor: PrintResult</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tcp_ping.html">tcp_ping</a></li>
 <li class="toctree-l2"><a class="reference internal" href="write_file.html">write_file</a></li>
 </ul>
 </li>
 </ul>
 
-            
-          
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">nornir_utils</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="index.html">Tutorials</a> &raquo;</li>
-        
-      <li>inventory: YAMLInventory</li>
-    
-    
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">inventory: YAMLInventory</li>
       <li class="wy-breadcrumbs-aside">
-        
-            
             <a href="../_sources/tutorials/inventory_YAMLInventory.ipynb.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   
 <style>
 /* CSS for nbsphinx extension */
 
 /* remove conflicting styling from Sphinx themes */
-div.nbinput.container,
-div.nbinput.container div.prompt,
-div.nbinput.container div.input_area,
-div.nbinput.container div[class*=highlight],
-div.nbinput.container div[class*=highlight] pre,
-div.nboutput.container,
-div.nboutput.container div.prompt,
-div.nboutput.container div.output_area,
-div.nboutput.container div[class*=highlight],
-div.nboutput.container div[class*=highlight] pre {
-    background: none;
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
     border: none;
-    padding: 0 0;
+    padding: 0;
     margin: 0;
     box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
 }
 
 /* avoid gaps between output lines */
@@ -231,20 +173,33 @@ div.nboutput.container div.prompt pre {
 /* all prompts */
 div.nbinput.container div.prompt,
 div.nboutput.container div.prompt {
-    min-width: 5ex;
-    padding-top: 0.3rem;
-    padding-right: 0.3rem;
-    text-align: right;
-    flex: 0;
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
 }
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
 @media (max-width: 540px) {
     div.nbinput.container div.prompt,
     div.nboutput.container div.prompt {
+        width: unset;
         text-align: left;
         padding: 0.4em;
     }
     div.nboutput.container div.prompt.empty {
         padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
     }
 }
 
@@ -272,7 +227,7 @@ div.nboutput.container div.output_area {
 div.nbinput.container div.input_area {
     border: 1px solid #e0e0e0;
     border-radius: 2px;
-    background: #f5f5f5;
+    /*background: #f5f5f5;*/
 }
 
 /* override MathJax center alignment in output cells */
@@ -337,7 +292,8 @@ div.nboutput.container div.output_area div[class*=highlight].math,
 div.nboutput.container div.output_area.rendered_html,
 div.nboutput.container div.output_area > div.output_javascript,
 div.nboutput.container div.output_area:not(.rendered_html) > img{
-    padding: 0.3rem;
+    padding: 5px;
+    margin: 0;
 }
 
 /* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
@@ -347,7 +303,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
+.prompt .copybtn {
     display: none;
 }
 
@@ -407,18 +363,17 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="inventory:-YAMLInventory">
-<h1>inventory: YAMLInventory<a class="headerlink" href="#inventory:-YAMLInventory" title="Permalink to this headline">¶</a></h1>
+<section id="inventory:-YAMLInventory">
+<h1>inventory: YAMLInventory<a class="headerlink" href="#inventory:-YAMLInventory" title="Permalink to this heading"></a></h1>
 <p><a class="reference internal" href="../api/inventory.html#nornir_utils.plugins.inventory.YAMLInventory"><span class="std std-ref">YAMLInventory</span></a> is an inventory plugin that builds the inventory from a few YAML files.</p>
-<div class="section" id="Data">
-<h2>Data<a class="headerlink" href="#Data" title="Permalink to this headline">¶</a></h2>
+<section id="Data">
+<h2>Data<a class="headerlink" href="#Data" title="Permalink to this heading"></a></h2>
 <p>Let’s see how it works by example. First let’s look at the different files the plugin takes:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%</span><span class="k">cat</span> data/hosts.yaml
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">cat</span> data/hosts.yaml
 </pre></div>
 </div>
 </div>
@@ -527,8 +482,7 @@ dev5.no_group:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%</span><span class="k">cat</span> data/groups.yaml
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">cat</span> data/groups.yaml
 </pre></div>
 </div>
 </div>
@@ -572,8 +526,7 @@ group_3:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%</span><span class="k">cat</span> data/defaults.yaml
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">cat</span> data/defaults.yaml
 </pre></div>
 </div>
 </div>
@@ -596,16 +549,15 @@ connection_options:
             blah: from_defaults
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="Example">
-<h2>Example<a class="headerlink" href="#Example" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Example">
+<h2>Example<a class="headerlink" href="#Example" title="Permalink to this heading"></a></h2>
 <p>Once you have the yaml files, using the plugin is very simple, you just need to specify the plugin you want to use is <code class="docutils literal notranslate"><span class="pre">YAMLInventory</span></code> and where to find the files:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">nornir</span> <span class="kn">import</span> <span class="n">InitNornir</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nornir</span> <span class="kn">import</span> <span class="n">InitNornir</span>
 
 <span class="n">nr</span> <span class="o">=</span> <span class="n">InitNornir</span><span class="p">(</span>
     <span class="n">inventory</span><span class="o">=</span><span class="p">{</span>
@@ -625,8 +577,7 @@ connection_options:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">nr</span><span class="o">.</span><span class="n">inventory</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nr</span><span class="o">.</span><span class="n">inventory</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -681,8 +632,8 @@ connection_options:
      &#39;a_string&#39;: &#39;qwe&#39;}},
    &#39;hostname&#39;: &#39;localhost&#39;,
    &#39;port&#39;: 65021,
-   &#39;username&#39;: &#39;root&#39;,
-   &#39;password&#39;: &#39;from_group1&#39;,
+   &#39;username&#39;: None,
+   &#39;password&#39;: None,
    &#39;platform&#39;: &#39;junos&#39;},
   &#39;dev3.group_2&#39;: {&#39;name&#39;: &#39;dev3.group_2&#39;,
    &#39;connection_options&#39;: {&#39;napalm&#39;: {&#39;extras&#39;: None,
@@ -695,8 +646,8 @@ connection_options:
    &#39;data&#39;: {&#39;www_server&#39;: &#39;apache&#39;, &#39;role&#39;: &#39;www&#39;},
    &#39;hostname&#39;: &#39;localhost&#39;,
    &#39;port&#39;: 65022,
-   &#39;username&#39;: &#39;root&#39;,
-   &#39;password&#39;: &#39;docker&#39;,
+   &#39;username&#39;: None,
+   &#39;password&#39;: None,
    &#39;platform&#39;: &#39;linux&#39;},
   &#39;dev4.group_2&#39;: {&#39;name&#39;: &#39;dev4.group_2&#39;,
    &#39;connection_options&#39;: {&#39;paramiko&#39;: {&#39;extras&#39;: None,
@@ -715,8 +666,8 @@ connection_options:
    &#39;data&#39;: {&#39;my_var&#39;: &#39;comes_from_dev4.group_2&#39;, &#39;role&#39;: &#39;db&#39;},
    &#39;hostname&#39;: &#39;localhost&#39;,
    &#39;port&#39;: 65023,
-   &#39;username&#39;: &#39;root&#39;,
-   &#39;password&#39;: &#39;docker&#39;,
+   &#39;username&#39;: None,
+   &#39;password&#39;: None,
    &#39;platform&#39;: &#39;linux&#39;},
   &#39;dev5.no_group&#39;: {&#39;name&#39;: &#39;dev5.no_group&#39;,
    &#39;connection_options&#39;: {},
@@ -724,8 +675,8 @@ connection_options:
    &#39;data&#39;: {},
    &#39;hostname&#39;: &#39;localhost&#39;,
    &#39;port&#39;: 65024,
-   &#39;username&#39;: &#39;root&#39;,
-   &#39;password&#39;: &#39;docker&#39;,
+   &#39;username&#39;: None,
+   &#39;password&#39;: None,
    &#39;platform&#39;: &#39;linux&#39;}},
  &#39;groups&#39;: {&#39;parent_group&#39;: {&#39;name&#39;: &#39;parent_group&#39;,
    &#39;connection_options&#39;: {&#39;dummy&#39;: {&#39;extras&#39;: {&#39;blah&#39;: &#39;from_group&#39;},
@@ -744,36 +695,36 @@ connection_options:
    &#39;data&#39;: {&#39;a_var&#39;: &#39;blah&#39;, &#39;a_false_var&#39;: False},
    &#39;hostname&#39;: None,
    &#39;port&#39;: None,
-   &#39;username&#39;: &#39;root&#39;,
+   &#39;username&#39;: None,
    &#39;password&#39;: &#39;from_parent_group&#39;,
-   &#39;platform&#39;: &#39;linux&#39;},
+   &#39;platform&#39;: None},
   &#39;group_1&#39;: {&#39;name&#39;: &#39;group_1&#39;,
    &#39;connection_options&#39;: {},
    &#39;groups&#39;: [&#39;parent_group&#39;],
    &#39;data&#39;: {&#39;my_var&#39;: &#39;comes_from_group_1&#39;, &#39;site&#39;: &#39;site1&#39;},
    &#39;hostname&#39;: None,
    &#39;port&#39;: None,
-   &#39;username&#39;: &#39;root&#39;,
+   &#39;username&#39;: None,
    &#39;password&#39;: &#39;from_group1&#39;,
-   &#39;platform&#39;: &#39;linux&#39;},
+   &#39;platform&#39;: None},
   &#39;group_2&#39;: {&#39;name&#39;: &#39;group_2&#39;,
    &#39;connection_options&#39;: {},
    &#39;groups&#39;: [],
    &#39;data&#39;: {&#39;site&#39;: &#39;site2&#39;},
    &#39;hostname&#39;: None,
    &#39;port&#39;: None,
-   &#39;username&#39;: &#39;root&#39;,
-   &#39;password&#39;: &#39;docker&#39;,
-   &#39;platform&#39;: &#39;linux&#39;},
+   &#39;username&#39;: None,
+   &#39;password&#39;: None,
+   &#39;platform&#39;: None},
   &#39;group_3&#39;: {&#39;name&#39;: &#39;group_3&#39;,
    &#39;connection_options&#39;: {},
    &#39;groups&#39;: [],
    &#39;data&#39;: {&#39;site&#39;: &#39;site2&#39;},
    &#39;hostname&#39;: None,
    &#39;port&#39;: None,
-   &#39;username&#39;: &#39;root&#39;,
-   &#39;password&#39;: &#39;docker&#39;,
-   &#39;platform&#39;: &#39;linux&#39;}},
+   &#39;username&#39;: None,
+   &#39;password&#39;: None,
+   &#39;platform&#39;: None}},
  &#39;defaults&#39;: {&#39;data&#39;: {&#39;my_var&#39;: &#39;comes_from_defaults&#39;,
    &#39;only_default&#39;: &#39;only_defined_in_default&#39;},
   &#39;connection_options&#39;: {&#39;dummy&#39;: {&#39;extras&#39;: {&#39;blah&#39;: &#39;from_defaults&#39;},
@@ -789,56 +740,38 @@ connection_options:
   &#39;platform&#39;: &#39;linux&#39;}}
 </pre></div></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="load_json.html" class="btn btn-neutral float-right" title="load_json" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="function_print_title.html" class="btn btn-neutral float-left" title="functions: print_result" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="function_print_title.html" class="btn btn-neutral float-left" title="functions: print_result" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="load_credentials.html" class="btn btn-neutral float-right" title="load_credentials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &copy; Copyright 2020, David Barroso
-
-    </p>
+    <p>&#169; Copyright 2020, David Barroso.</p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
-
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
