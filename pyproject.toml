@@ -12,7 +12,7 @@ license = "Apache-2.0"
 "load_credentials" = "nornir_utils.plugins.inventory.transform_functions:load_credentials"
 
 [tool.poetry.dependencies]
-python = "^3.6.2"
+python = ">=3.7,<4.0"
 nornir = { version = "~3", allow-prereleases = true }
 colorama = "^0.4.3"
 
@@ -25,7 +25,7 @@ nbval = "*"
 jupyter = "^1"
 sphinx = "^5.3.0"
 sphinxcontrib-napoleon = "^0.7"
-nbsphinx = "^0.8.8"
+nbsphinx = "^0.9.2"
 sphinx-issues = "^3.0.1"
 sphinx_rtd_theme = "^1.2.1"
 
