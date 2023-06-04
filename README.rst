@@ -50,3 +50,7 @@ Data:
 Files:
 
 * **write_file** - Writes content to files
+
+Networking:
+
+* **tcp_ping** - Tests connection to a tcp port.

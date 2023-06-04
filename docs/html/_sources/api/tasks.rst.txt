@@ -8,3 +8,7 @@ tasks
 .. automodule:: nornir_utils.plugins.tasks.files
    :members:
    :undoc-members:
+
+.. automodule:: nornir_utils.plugins.tasks.networking
+   :members:
+   :undoc-members:
