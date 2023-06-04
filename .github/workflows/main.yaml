@@ -85,7 +85,7 @@ jobs:
         with:
           virtualenvs-path: ~/.virtualenvs
 
-      - name: Install Dependencies
+      - name: Build
         run: poetry build
       
       - name: Publish package
