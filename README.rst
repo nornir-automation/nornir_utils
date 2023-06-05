@@ -25,6 +25,7 @@ Inventory
 _________
 
 * **YAMLInventory** - Create an inventory from yaml files
+* **load_credentials** - Transform function to load credentials from venv
 
 Functions
 _________
@@ -49,3 +50,7 @@ Data:
 Files:
 
 * **write_file** - Writes content to files
+
+Networking:
+
+* **tcp_ping** - Tests connection to a tcp port.
