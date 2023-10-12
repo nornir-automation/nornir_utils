@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.6', '3.7', '3.8' ]
+        python-version: [ '3.7', '3.8', '3.9', '3.10' ]
     steps:
       - uses: actions/checkout@v2
       - name: Start dev env
@@ -74,14 +74,20 @@ jobs:
     name: Releasing to pypi
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Build
-        uses: abatilo/actions-poetry@v1.5.0
+      - uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v1
         with:
-          python_version: 3.8.0
-          poetry_version: 1.0
-          working_directory: .
-          args: build
+          python-version: 3.8
+
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-path: ~/.virtualenvs
+
+      - name: Build
+        run: poetry build
+      
       - name: Publish package
         if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@master
