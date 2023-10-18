@@ -2,7 +2,7 @@ import logging
 import os
 import threading
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 from nornir.core.task import Result
 
@@ -15,7 +15,7 @@ LOCK = threading.Lock()
 def write_result(
     result: Result,
     filepath: str,
-    vars: List[str] = None,
+    vars: Optional[List[str]] = None,
     failed: bool = False,
     severity_level: int = logging.INFO,
     no_errors: bool = False,
