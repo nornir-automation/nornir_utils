@@ -4,7 +4,7 @@ import pprint
 import sys
 import threading
 from collections import OrderedDict
-from typing import IO, List, cast
+from typing import IO, List, cast, Optional
 
 from colorama import AnsiToWin32, Fore, Style, init
 from colorama.ansitowin32 import StreamWrapper
@@ -89,7 +89,7 @@ def _print_individual_result(
 
 def _print_result(
     result: Result,
-    attrs: List[str] = None,
+    attrs: Optional[List[str]] = None,
     failed: bool = False,
     severity_level: int = logging.INFO,
     no_errors: bool = False,
@@ -156,7 +156,7 @@ def _print_result(
 
 def print_result(
     result: Result,
-    vars: List[str] = None,
+    vars: Optional[List[str]] = None,
     failed: bool = False,
     severity_level: int = logging.INFO,
     no_errors: bool = False,
