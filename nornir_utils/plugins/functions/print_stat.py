@@ -13,7 +13,6 @@ def _print_individual_stat(
     ch_sum: int = 0,
     f_sum: int = 0,
 ) -> Tuple[int, int, int]:
-
     f, ch = (result.failed, result.changed)
 
     res_sum += 1
@@ -35,7 +34,6 @@ def _print_stat(
     ch_sum: int = 0,
     f_sum: int = 0,
 ) -> Tuple[int, int, int]:
-
     if isinstance(result, AggregatedResult):
         msg = result.name
         print("{}{}{}{}".format(Style.BRIGHT, Fore.CYAN, msg, "*" * (80 - len(msg))))
