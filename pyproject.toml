@@ -12,7 +12,7 @@ license = "Apache-2.0"
 "load_credentials" = "nornir_utils.plugins.inventory.transform_functions:load_credentials"
 
 [tool.poetry.dependencies]
-python = ">=3.7,<4.0"
+python = ">=3.8,<4.0"
 nornir = { version = "~3", allow-prereleases = true }
 colorama = "^0.4.3"
 
