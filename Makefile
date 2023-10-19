@@ -1,6 +1,6 @@
 NAME=$(shell basename $(PWD))
 
-PYTHON:=3.7
+PYTHON:=3.8
 
 DOCKER_COMPOSE_FILE=docker-compose.yml
 DOCKER_COMPOSE=docker-compose -f ${DOCKER_COMPOSE_FILE}
