@@ -15,6 +15,7 @@ def tcp_ping(
         ports (list of int): tcp ports to ping
         timeout (int, optional): defaults to 2
         host (string, optional): defaults to ``hostname``
+        ipv6 (bool): use ipv6 socket. defaults to ``False``
 
 
     Returns:
