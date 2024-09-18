@@ -1,7 +1,7 @@
 import logging
 import pprint
 import threading
-from typing import List, cast, Optional
+from typing import List, cast, Optional, Union
 from collections import OrderedDict
 import json
 
@@ -77,7 +77,7 @@ def _print_individual_result(
 
 
 def _print_result(
-    result: Result,
+    result: Union[Result, AggregatedResult, MultiResult],
     attrs: Optional[List[str]] = None,
     failed: bool = False,
     severity_level: int = logging.INFO,
@@ -123,7 +123,7 @@ def _print_result(
 
 
 def print_result(
-    result: Result,
+    result: Union[Result, AggregatedResult, MultiResult],
     vars: Optional[List[str]] = None,
     failed: bool = False,
     severity_level: int = logging.INFO,
