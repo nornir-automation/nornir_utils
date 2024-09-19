@@ -9,7 +9,7 @@
 nornir_utils
 ============
 
-Collection of simple plugins for `nornir <github.com/nornir-automation/nornir/>`_
+Collection of simple plugins for `nornir <https://github.com/nornir-automation/nornir/>`_
 
 Installation
 ------------
