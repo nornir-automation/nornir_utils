@@ -24,7 +24,6 @@ jobs:
           key: poetry-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
           restore-keys: poetry-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
-
       - name: Install Dependencies
         run: poetry install
 
@@ -44,6 +43,8 @@ jobs:
           - '3.8'
           - '3.9'
           - '3.10'
+          - '3.11'
+          - '3.12'
     steps:
       - uses: actions/checkout@v2
       - name: Start dev env
@@ -90,7 +91,7 @@ jobs:
 
       - name: Build
         run: poetry build
-      
+
       - name: Publish package
         if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@master
