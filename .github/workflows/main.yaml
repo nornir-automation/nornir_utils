@@ -7,9 +7,9 @@ jobs:
     name: linters
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v5
 
       - name: Install and configure Poetry
         uses: snok/install-poetry@v1
@@ -46,11 +46,11 @@ jobs:
           - '3.11'
           - '3.12'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Start dev env
         run: make start_dev_env
       - name: Setup python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
@@ -78,9 +78,9 @@ jobs:
     name: Releasing to pypi
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v5
         with:
           python-version: 3.8
 
