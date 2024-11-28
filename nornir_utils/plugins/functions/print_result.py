@@ -5,7 +5,7 @@ from typing import List, cast, Optional, Union
 from collections import OrderedDict
 import json
 
-from colorama import Fore, Style, init
+from colorama import Fore, Style, init, deinit
 
 from nornir.core.task import AggregatedResult, MultiResult, Result
 
@@ -13,15 +13,14 @@ from nornir.core.task import AggregatedResult, MultiResult, Result
 LOCK = threading.Lock()
 
 
-init(autoreset=True, strip=False)
-
-
 def print_title(title: str) -> None:
     """
     Helper function to print a title.
     """
+    init(autoreset=True, strip=False)
     msg = "**** {} ".format(title)
     print("{}{}{}{}".format(Style.BRIGHT, Fore.GREEN, msg, "*" * (80 - len(msg))))
+    deinit()
 
 
 def _get_color(result: Result, failed: bool) -> str:
@@ -138,7 +137,9 @@ def print_result(
       severity_level: Print only errors with this severity level or higher
     """
     LOCK.acquire()
+    init(autoreset=True, strip=False)
     try:
         _print_result(result, vars, failed, severity_level, print_host=True)
     finally:
+        deinit()
         LOCK.release()
